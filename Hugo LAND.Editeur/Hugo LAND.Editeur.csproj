@@ -144,6 +144,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GameData\AllTiles.bmp" />
     <Content Include="GameData\Animations.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
