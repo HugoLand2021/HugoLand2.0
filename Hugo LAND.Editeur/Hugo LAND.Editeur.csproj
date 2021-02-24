@@ -157,6 +157,11 @@
     <Content Include="GameData\Objets.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="GameData\AllTilesLookups.csv" />
+    <None Include="GameData\ClasseHeroLookups.csv" />
+    <None Include="GameData\ItemLookups.csv" />
+    <None Include="GameData\MonstreLookups.csv" />
+    <None Include="GameData\ObjetLookups.csv" />
     <None Include="Resources\HugoLand.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
