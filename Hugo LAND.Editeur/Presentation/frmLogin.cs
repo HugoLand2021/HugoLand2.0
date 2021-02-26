@@ -14,15 +14,19 @@ namespace HugoLandEditeur
     public partial class frmLogin : Form
     {
         private bool EstConnecte =  false;
-        public frmLogin()
+        private readonly frmMain mainForm;
+
+        public frmLogin(frmMain mainForm)
         {
             InitializeComponent();
+            this.mainForm = mainForm;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             if (CompteJoueursCRUD.ValideJoueur(txtUserName.Text, txtPwd.Text) == "SUCCESS") {
                 EstConnecte = true;
+                mainForm.ConnectionReussie();
                 this.Close();
             }
             else

@@ -29,6 +29,14 @@ namespace HugoLandEditeur
         private Rectangle m_LibRect;
         private int m_ActiveXIndex;
         private int m_ActiveYIndex;
+        private readonly frmLogin loginForm;
+
+        internal void ConnectionReussie()
+        {
+            loginForm.Dispose();
+            this.Enabled = true;
+        }
+
         private int m_ActiveTileID;
         private int m_ActiveTileXIndex;
         private int m_ActiveTileYIndex;		
@@ -56,13 +64,11 @@ namespace HugoLandEditeur
         public frmMain()
         {
             InitializeComponent();
-            frmLogin l;
+            loginForm = new frmLogin(this);
             //DialogResult result;
             //bool bResult;
+            
 
-            l = new frmLogin();
-
-            l.ShowDialog();
         }
 
         /* -------------------------------------------------------------- *\
@@ -130,9 +136,8 @@ namespace HugoLandEditeur
 
             tbMain.Controls.Add(lblZoom);
             tbMain.Controls.Add(cboZoom);
-
-
         }
+
 
 
         /* -------------------------------------------------------------- *\
@@ -672,6 +677,12 @@ namespace HugoLandEditeur
         private void mnuCreateNewUser_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmMain_Shown(object sender, EventArgs e)
+        {
+            loginForm.ShowDialog();
+            this.Enabled = false;
         }
     }
 }
