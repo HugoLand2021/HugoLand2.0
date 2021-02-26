@@ -13,6 +13,7 @@ namespace HugoLandEditeur
 {
     public partial class frmLogin : Form
     {
+        private bool EstConnecte =  false;
         public frmLogin()
         {
             InitializeComponent();
@@ -20,12 +21,19 @@ namespace HugoLandEditeur
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            
+            if (CompteJoueursCRUD.ValideJoueur(txtUserName.Text, txtPwd.Text) == "SUCCESS") {
+                EstConnecte = true;
+                this.Close();
+            }
+            else
+                MessageBox.Show("Le nom ou mot de passe n'est pas bon!", "Erreur!", MessageBoxButtons.OK , MessageBoxIcon.Warning);
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
+        private void btnCancel_Click(object sender, EventArgs e) => Application.Exit();
 
+        private void frmLogin_FormClosed(object sender, FormClosedEventArgs e) { 
+            if (!EstConnecte)
+                Application.Exit();
         }
     }
 }

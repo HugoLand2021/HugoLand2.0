@@ -41,7 +41,7 @@
             this.lblUser.AutoSize = true;
             this.lblUser.Location = new System.Drawing.Point(12, 35);
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(121, 17);
+            this.lblUser.Size = new System.Drawing.Size(113, 16);
             this.lblUser.TabIndex = 0;
             this.lblUser.Text = "Nom d\'utilisateur :";
             // 
@@ -50,7 +50,7 @@
             this.lblPwd.AutoSize = true;
             this.lblPwd.Location = new System.Drawing.Point(32, 68);
             this.lblPwd.Name = "lblPwd";
-            this.lblPwd.Size = new System.Drawing.Size(101, 17);
+            this.lblPwd.Size = new System.Drawing.Size(96, 16);
             this.lblPwd.TabIndex = 1;
             this.lblPwd.Text = "Mot de passe :";
             // 
@@ -70,9 +70,10 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(52, 121);
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Location = new System.Drawing.Point(15, 121);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(98, 23);
+            this.btnLogin.Size = new System.Drawing.Size(121, 33);
             this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Connexion";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -80,9 +81,10 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(176, 121);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(98, 23);
+            this.btnCancel.Size = new System.Drawing.Size(121, 33);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Annuler";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -92,15 +94,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 166);
+            this.ClientSize = new System.Drawing.Size(315, 166);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPwd);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.lblPwd);
             this.Controls.Add(this.lblUser);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmLogin";
             this.Text = "Connexion Utilisateur";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmLogin_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
