@@ -354,7 +354,7 @@
           <Property Name="Courriel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TypeUtilisateur" Type="Int32" Nullable="false" />
+          <Property Name="TypeUtilisateur" Type="HugoLANDModel.TypeUtilisateur" Nullable="false" />
           <Property Name="MotDePasseHash" Type="Binary" MaxLength="64" FixedLength="true" Nullable="false" />
           <Property Name="Salt" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Heros" Relationship="Self.IsPartOfAccount" FromRole="CompteJoueur" ToRole="Heros" />
@@ -575,6 +575,10 @@
             <Parameter Name="Message" Mode="InOut" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <EnumType Name="TypeUtilisateur">
+          <Member Name="Admin" Value="1" />
+          <Member Name="Utilisateur" Value="2" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

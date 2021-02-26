@@ -10,20 +10,10 @@
 namespace Hugo_LAND.Core
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Monstre
+    public enum TypeUtilisateur : int
     {
-        public int Id { get; set; }
-        public string Nom { get; set; }
-        public int Niveau { get; set; }
-        public int x { get; set; }
-        public int y { get; set; }
-        public int StatPV { get; set; }
-        public float StatDmgMin { get; set; }
-        public float StatDmgMax { get; set; }
-        public Nullable<int> ImageId { get; set; }
-    
-        public virtual Monde Monde { get; set; }
+        Admin = 1,
+        Utilisateur = 2
     }
 }

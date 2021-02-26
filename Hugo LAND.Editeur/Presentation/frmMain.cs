@@ -56,6 +56,7 @@ namespace HugoLandEditeur
         public frmMain()
         {
             InitializeComponent();
+
         }
 
         /* -------------------------------------------------------------- *\
@@ -123,6 +124,8 @@ namespace HugoLandEditeur
 
             tbMain.Controls.Add(lblZoom);
             tbMain.Controls.Add(cboZoom);
+
+
         }
 
 
