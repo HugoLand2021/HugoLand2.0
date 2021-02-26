@@ -29,7 +29,7 @@ namespace Hugo_LAND.Core.Model
             }
         }
 
-        public static void ModifCompteJoueur(int id, string nomJoueur, string courriel, string prenom, string nom, int typeUtilisateur, string mdp)
+        public static void ModifCompteJoueur(int id, string nomJoueur, string courriel, string prenom, string nom, TypeUtilisateur typeUtilisateur, string mdp)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
@@ -39,7 +39,8 @@ namespace Hugo_LAND.Core.Model
                 result.Prenom = prenom;
                 result.Nom = nom;
                 result.TypeUtilisateur = typeUtilisateur;
-                result.MotDePasseHash = Encoding.ASCII.GetBytes(mdp); // Procédure stocké pour gérer le changement de mot de passe.
+                result.MotDePasseHash = context.ChangerMdp(result.NomJoueur, mdp, );
+                //result.MotDePasseHash = Encoding.ASCII.GetBytes(mdp); // Procédure stocké pour gérer le changement de mot de passe.
                 context.SaveChanges();
             }
         }

@@ -78,5 +78,18 @@ namespace Hugo_LAND.Core
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreerCompteJoueur", pNomUtilisateurParameter, pCourrielParameter, pPrenomParameter, pNomParameter, pTypeUtilisateurParameter, pMotDePasseParameter, message);
         }
+    
+        public virtual int ChangerMdp(string pNomUtilisateur, string pMotDePasse, ObjectParameter message)
+        {
+            var pNomUtilisateurParameter = pNomUtilisateur != null ?
+                new ObjectParameter("pNomUtilisateur", pNomUtilisateur) :
+                new ObjectParameter("pNomUtilisateur", typeof(string));
+    
+            var pMotDePasseParameter = pMotDePasse != null ?
+                new ObjectParameter("pMotDePasse", pMotDePasse) :
+                new ObjectParameter("pMotDePasse", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ChangerMdp", pNomUtilisateurParameter, pMotDePasseParameter, message);
+        }
     }
 }

@@ -56,7 +56,13 @@ namespace HugoLandEditeur
         public frmMain()
         {
             InitializeComponent();
+            frmLogin l;
+            //DialogResult result;
+            //bool bResult;
 
+            l = new frmLogin();
+
+            l.ShowDialog();
         }
 
         /* -------------------------------------------------------------- *\

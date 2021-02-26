@@ -1,4 +1,4 @@
-﻿namespace HugoLandEditeur.Presentation
+﻿namespace HugoLandEditeur
 {
     partial class frmLogin
     {
@@ -76,6 +76,7 @@
             this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Connexion";
             this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // btnCancel
             // 
@@ -85,6 +86,7 @@
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Annuler";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmLogin
             // 
