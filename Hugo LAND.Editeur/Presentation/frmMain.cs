@@ -681,8 +681,8 @@ namespace HugoLandEditeur
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
-            loginForm.ShowDialog();
             this.Enabled = false;
+            loginForm.ShowDialog();
         }
     }
 }
