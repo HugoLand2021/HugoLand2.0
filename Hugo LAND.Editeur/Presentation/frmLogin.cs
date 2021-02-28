@@ -20,6 +20,7 @@ namespace HugoLandEditeur
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            txtPwd.PasswordChar = '*';
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -30,7 +31,7 @@ namespace HugoLandEditeur
                 this.Close();
             }
             else
-                MessageBox.Show("Le nom ou mot de passe n'est pas bon!", "Erreur!", MessageBoxButtons.OK , MessageBoxIcon.Warning);
+                MessageBox.Show("The username or password is incorrect!", "Error!", MessageBoxButtons.OK , MessageBoxIcon.Warning);
         }
 
         private void btnCancel_Click(object sender, EventArgs e) => Application.Exit();

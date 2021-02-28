@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HugoLandEditeur.Presentation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -674,15 +675,17 @@ namespace HugoLandEditeur
             picTiles.Focus();
         }
 
-        private void mnuCreateNewUser_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void frmMain_Shown(object sender, EventArgs e)
         {
             this.Enabled = false;
             loginForm.ShowDialog();
+        }
+
+        private void menuItem3_Click(object sender, EventArgs e)
+        {
+            //Create user...
+            frmCreateUser f = new frmCreateUser();
+            f.ShowDialog();
         }
     }
 }
