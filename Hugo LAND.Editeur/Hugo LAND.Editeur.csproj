@@ -116,6 +116,12 @@
     <Compile Include="Presentation\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\frmOpen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\frmOpen.Designer.cs">
+      <DependentUpon>frmOpen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -147,6 +153,9 @@
     <EmbeddedResource Include="Presentation\frmNew.resx">
       <DependentUpon>frmNew.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\frmOpen.resx">
+      <DependentUpon>frmOpen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -176,12 +185,15 @@
     <Content Include="GameData\Objets.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\leftArrow.png" />
+    <Content Include="Resources\rightArrow.png" />
     <None Include="GameData\AllTilesLookups.csv" />
     <None Include="GameData\ClasseHeroLookups.csv" />
     <None Include="GameData\ItemLookups.csv" />
     <None Include="GameData\MonstreLookups.csv" />
     <None Include="GameData\ObjetLookups.csv" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Monde.datasource" />
     <None Include="Resources\HugoLand.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
