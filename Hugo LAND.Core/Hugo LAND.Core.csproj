@@ -53,82 +53,82 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ClassesCRUD.cs" />
-    <Compile Include="Model\CompteJoueursCRUD.cs" />
-    <Compile Include="Model\EffetItemCRUD.cs" />
-    <Compile Include="Model\HeroCRUD.cs" />
-    <Compile Include="Model\ItemCRUD.cs" />
-    <Compile Include="Model\MondeCRUD.cs" />
-    <Compile Include="Classe.cs">
+    <Compile Include="Models\ClassesCRUD.cs" />
+    <Compile Include="Models\CompteJoueursCRUD.cs" />
+    <Compile Include="Models\EffetItemCRUD.cs" />
+    <Compile Include="Models\HeroCRUD.cs" />
+    <Compile Include="Models\ItemCRUD.cs" />
+    <Compile Include="Models\MondeCRUD.cs" />
+    <Compile Include="Models\Classe.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CompteJoueur.cs">
+    <Compile Include="Models\CompteJoueur.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EffetItem.cs">
+    <Compile Include="Models\EffetItem.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Hero.cs">
+    <Compile Include="Models\Hero.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="HugoLANDModel.Context.cs">
+    <Compile Include="Models\HugoLANDModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HugoLANDModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="HugoLANDModel.cs">
+    <Compile Include="Models\HugoLANDModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="HugoLANDModel.Designer.cs">
+    <Compile Include="Models\HugoLANDModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="InventaireHero.cs">
+    <Compile Include="Models\InventaireHero.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Item.cs">
+    <Compile Include="Models\Item.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\MonstreCRUD.cs" />
-    <Compile Include="Model\ObjetMondeCRUD.cs" />
-    <Compile Include="Monde.cs">
+    <Compile Include="Models\MonstreCRUD.cs" />
+    <Compile Include="Models\ObjetMondeCRUD.cs" />
+    <Compile Include="Models\Monde.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Monstre.cs">
+    <Compile Include="Models\Monstre.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ObjetMonde.cs">
+    <Compile Include="Models\ObjetMonde.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeUtilisateur.cs">
+    <Compile Include="Models\TypeUtilisateur.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Validators\CreateUserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="HugoLANDModel.edmx">
+    <EntityDeploy Include="Models\HugoLANDModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HugoLANDModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="HugoLANDModel.edmx.diagram">
+    <None Include="Models\HugoLANDModel.edmx.diagram">
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HugoLANDModel.Context.tt">
+    <Content Include="Models\HugoLANDModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HugoLANDModel.Context.cs</LastGenOutput>
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
     </Content>
-    <Content Include="HugoLANDModel.tt">
+    <Content Include="Models\HugoLANDModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
       <LastGenOutput>HugoLANDModel.cs</LastGenOutput>

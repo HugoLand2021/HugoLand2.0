@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hugo_LAND.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
