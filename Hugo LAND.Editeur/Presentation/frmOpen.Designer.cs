@@ -95,7 +95,7 @@ namespace HugoLandEditeur.Presentation
             // 
             // mondeBindingSource
             // 
-            this.mondeBindingSource.DataSource = typeof(Hugo_LAND.Core.Monde);
+            this.mondeBindingSource.DataSource = typeof(Hugo_LAND.Core.Models.Monde);
             // 
             // lblId
             // 
