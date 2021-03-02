@@ -194,15 +194,28 @@
     <Content Include="GameData\Objets.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\leftArrow.png" />
-    <Content Include="Resources\rightArrow.png" />
+    <Content Include="Resources\leftArrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\rightArrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="GameData\AllTilesLookups.csv" />
     <None Include="GameData\ClasseHeroLookups.csv" />
     <None Include="GameData\ItemLookups.csv" />
     <None Include="GameData\MonstreLookups.csv" />
     <None Include="GameData\ObjetLookups.csv" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\Hugo_LAND.Core.Monde.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.Classe.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.CompteJoueur.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.EffetItem.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.Hero.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.HugoLANDContext.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.InventaireHero.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.Item.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.Monde.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.Monstre.datasource" />
+    <None Include="Properties\DataSources\Hugo_LAND.Core.Models.ObjetMonde.datasource" />
     <None Include="Resources\HugoLand.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
