@@ -129,6 +129,7 @@ namespace HugoLandEditeur.Presentation
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 9;
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnPrevious
             // 
@@ -138,6 +139,7 @@ namespace HugoLandEditeur.Presentation
             this.btnPrevious.Size = new System.Drawing.Size(75, 23);
             this.btnPrevious.TabIndex = 8;
             this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnSelect
             // 
@@ -147,12 +149,13 @@ namespace HugoLandEditeur.Presentation
             this.btnSelect.TabIndex = 10;
             this.btnSelect.Text = "Select";
             this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // frmOpen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(406, 230);
+            this.ClientSize = new System.Drawing.Size(349, 230);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
@@ -167,6 +170,7 @@ namespace HugoLandEditeur.Presentation
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmOpen";
             this.Text = "Selection de Monde";
+            this.Load += new System.EventHandler(this.frmOpen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.mondeBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

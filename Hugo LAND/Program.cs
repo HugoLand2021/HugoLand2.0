@@ -1,4 +1,4 @@
-﻿using Hugo_LAND.Core.Model;
+﻿using Hugo_LAND.Core.Models;
 using System;
 
 namespace Hugo_LAND

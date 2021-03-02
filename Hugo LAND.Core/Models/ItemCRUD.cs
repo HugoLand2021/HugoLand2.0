@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hugo_LAND.Core.Model
+namespace Hugo_LAND.Core.Models
 {
     public static class ItemCRUD
     {

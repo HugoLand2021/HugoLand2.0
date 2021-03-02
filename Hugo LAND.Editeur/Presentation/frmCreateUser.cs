@@ -1,4 +1,4 @@
-﻿using Hugo_LAND.Core.Model;
+﻿using Hugo_LAND.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

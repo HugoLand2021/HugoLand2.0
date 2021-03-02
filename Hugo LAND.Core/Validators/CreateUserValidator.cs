@@ -1,11 +1,5 @@
 ﻿using FluentValidation;
 using Hugo_LAND.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hugo_LAND.Core.Models;
 
 namespace Hugo_LAND.Core.Validators
 {

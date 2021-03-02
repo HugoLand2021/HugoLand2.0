@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Hugo_LAND.Core.Model;
+using Hugo_LAND.Core.Models;
 
 namespace HugoLandEditeur
 {
