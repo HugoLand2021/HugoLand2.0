@@ -49,7 +49,7 @@ namespace HugoLandEditeur
             }
         }
 
-        public string MapDescritpion
+        public string MapDescription
         {
             get
             {

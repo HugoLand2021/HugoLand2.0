@@ -592,7 +592,7 @@ namespace HugoLandEditeur
             f = new frmNew();
             f.MapWidth = m_Map.Width;
             f.MapHeight = m_Map.Height;
-            f.MapDescritpion = m_Map.Description;
+            f.MapDescription = m_Map.Description;
 
             result = f.ShowDialog(this);
             if (result == DialogResult.OK)
@@ -602,7 +602,7 @@ namespace HugoLandEditeur
                 this.Cursor = Cursors.WaitCursor;
                 try
                 {
-                    bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, f.MapDescritpion,32);
+                    bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, f.MapDescription,32);
                     if (bResult)
                     {
                         m_bOpen = true;
