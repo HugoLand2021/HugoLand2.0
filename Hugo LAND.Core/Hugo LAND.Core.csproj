@@ -61,51 +61,64 @@
     <Compile Include="Models\MondeCRUD.cs" />
     <Compile Include="Models\Classe.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\CompteJoueur.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\EffetItem.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\Hero.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\HugoLANDModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HugoLANDModel.Context.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\HugoLANDModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\HugoLANDModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\InventaireHero.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\Item.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\MonstreCRUD.cs" />
     <Compile Include="Models\ObjetMondeCRUD.cs" />
     <Compile Include="Models\Monde.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\Monstre.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Models\ObjetMonde.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TypeUtilisateur.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Validators\CreateUserValidator.cs" />
   </ItemGroup>
@@ -113,12 +126,14 @@
     <EntityDeploy Include="Models\HugoLANDModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HugoLANDModel.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="Models\HugoLANDModel.edmx.diagram">
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -127,11 +142,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HugoLANDModel.Context.cs</LastGenOutput>
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Models\HugoLANDModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HugoLANDModel.edmx</DependentUpon>
       <LastGenOutput>HugoLANDModel.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

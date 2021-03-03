@@ -25,13 +25,20 @@ namespace HugoLandEditeur
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (CompteJoueursCRUD.ValideJoueur(txtUserName.Text, txtPwd.Text) == "SUCCESS") {
-                EstConnecte = true;
-                mainForm.ConnectionReussie();
-                this.Close();
+            using (var context = new HugoLANDContext())
+            {
+                var compte = context.CompteJoueurs.Where(c => c.TypeUtilisateur == TypeUtilisateur.Admin).ToList();
+
+                if (CompteJoueursCRUD.ValideJoueur(txtUserName.Text, txtPwd.Text) == "SUCCESS" && txtUserName.Text == compte.Find(c=>c.NomJoueur == txtUserName.Text).NomJoueur) {
+                    EstConnecte = true;
+                    mainForm.ConnectionReussie();
+                    this.Close();
+                }
+                else
+                    MessageBox.Show("The username or password is incorrect!\r\nOr you are not an administrator!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
             }
-            else
-                MessageBox.Show("The username or password is incorrect!", "Error!", MessageBoxButtons.OK , MessageBoxIcon.Warning);
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e) => Application.Exit();

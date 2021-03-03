@@ -688,5 +688,12 @@ namespace HugoLandEditeur
             frmCreateUser f = new frmCreateUser();
             f.ShowDialog();
         }
+
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+            //Create admin
+            frmAdmin f = new frmAdmin();
+            f.ShowDialog();
+        }
     }
 }
