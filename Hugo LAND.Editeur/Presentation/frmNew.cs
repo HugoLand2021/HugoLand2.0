@@ -14,6 +14,7 @@ namespace HugoLandEditeur
     {
         private int m_Width;
         private int m_Height;
+        private string m_Description;
         public frmNew()
         {
             InitializeComponent();
@@ -48,16 +49,32 @@ namespace HugoLandEditeur
             }
         }
 
+        public string MapDescritpion
+        {
+            get
+            {
+                return m_Description;
+            }
+            set
+            {
+                m_Description = value;
+            }
+        }
+
 
         private void UpdateUI()
         {
             int val1 = 0, val2 = 0;
-            btnOK.Enabled = ValidateInput(ref val1, ref val2);
+            string val3 = "";
+            btnOK.Enabled = ValidateInput(ref val1, ref val2, ref val3);
         }
 
-        private bool ValidateInput(ref int nWidth, ref int nHeight)
+        private bool ValidateInput(ref int nWidth, ref int nHeight, ref string nDescription)
         {
-            String strValue = txtWidth.Text.Trim();
+            String strValue = txtDescription.Text.Trim();
+            nDescription = strValue;
+
+            strValue = txtWidth.Text.Trim();
             int nValue = Convert.ToInt32(strValue, 10);
             nWidth = nValue;
 
@@ -73,17 +90,22 @@ namespace HugoLandEditeur
             if (nWidth < 8 || nWidth > 64000)
                 return false;
 
+            if (nDescription.Length < 3 || nDescription.Length > 50)
+                return false;
+
             return true;
         }
 
         private void btnOK_Click(object sender, System.EventArgs e)
         {
             int width = 0, height = 0;
+            string description = "";
 
-            if (ValidateInput(ref width, ref height))
+            if (ValidateInput(ref width, ref height, ref description))
             {
                 m_Width = width;
                 m_Height = height;
+                m_Description = description;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

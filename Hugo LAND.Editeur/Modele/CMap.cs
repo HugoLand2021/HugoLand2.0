@@ -12,6 +12,7 @@ namespace HugoLandEditeur
     public class CMap
     {
 
+        private string m_Description;
         private int m_Width;			// map width (tiles)
         private int m_Height;			// map height (tiles)
         private int m_DefaultTileID;	// default tile id for outside normal bounds
@@ -26,7 +27,21 @@ namespace HugoLandEditeur
 
 
 
-        private CTileLibrary m_TileLibrary;		// Reference to a Tile Library
+        private CTileLibrary m_TileLibrary;     // Reference to a Tile Library
+
+        public string Description
+        {
+            get
+            {
+                return m_Description;
+            }
+            set
+            {
+                m_Description = value;
+            }
+        }
+
+
 
         // Map Width (in Tiles)
         public int Width
@@ -317,7 +332,7 @@ namespace HugoLandEditeur
             return 0;
         }
 
-        public bool CreateNew(int width, int height, int defaulttile)
+        public bool CreateNew(int width, int height, string description,int defaulttile)
         {
             int i, j;
 
@@ -329,6 +344,7 @@ namespace HugoLandEditeur
             // Build Backbuffer
             m_Width = width;
             m_Height = height;
+            m_Description = description;
 
             try
             {

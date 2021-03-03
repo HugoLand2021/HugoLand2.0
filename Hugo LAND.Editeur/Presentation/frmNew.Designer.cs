@@ -42,11 +42,13 @@
             this.txtHeight = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblWidth
             // 
-            this.lblWidth.Location = new System.Drawing.Point(10, 18);
+            this.lblWidth.Location = new System.Drawing.Point(12, 52);
             this.lblWidth.Name = "lblWidth";
             this.lblWidth.Size = new System.Drawing.Size(96, 27);
             this.lblWidth.TabIndex = 0;
@@ -54,7 +56,7 @@
             // 
             // lblHeight
             // 
-            this.lblHeight.Location = new System.Drawing.Point(10, 46);
+            this.lblHeight.Location = new System.Drawing.Point(12, 80);
             this.lblHeight.Name = "lblHeight";
             this.lblHeight.Size = new System.Drawing.Size(86, 27);
             this.lblHeight.TabIndex = 1;
@@ -62,7 +64,7 @@
             // 
             // txtWidth
             // 
-            this.txtWidth.Location = new System.Drawing.Point(124, 18);
+            this.txtWidth.Location = new System.Drawing.Point(126, 52);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(120, 22);
             this.txtWidth.TabIndex = 2;
@@ -72,7 +74,7 @@
             // 
             // txtHeight
             // 
-            this.txtHeight.Location = new System.Drawing.Point(124, 46);
+            this.txtHeight.Location = new System.Drawing.Point(126, 80);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(120, 22);
             this.txtHeight.TabIndex = 3;
@@ -82,7 +84,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(68, 92);
+            this.btnOK.Location = new System.Drawing.Point(70, 126);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(90, 27);
             this.btnOK.TabIndex = 4;
@@ -92,19 +94,37 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(164, 92);
+            this.btnCancel.Location = new System.Drawing.Point(166, 126);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(90, 27);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(12, 25);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(87, 17);
+            this.lblDescription.TabIndex = 6;
+            this.lblDescription.Text = "Description :";
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(126, 22);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(120, 22);
+            this.txtDescription.TabIndex = 7;
+            // 
             // frmNew
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(266, 120);
+            this.ClientSize = new System.Drawing.Size(322, 184);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtHeight);
@@ -122,5 +142,8 @@
 
         }
         #endregion
+
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.TextBox txtDescription;
     }
 }

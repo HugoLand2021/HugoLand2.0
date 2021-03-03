@@ -42,6 +42,7 @@ namespace HugoLandEditeur.Presentation
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnSelect = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             descriptionLabel = new System.Windows.Forms.Label();
             idLabel = new System.Windows.Forms.Label();
             limiteXLabel = new System.Windows.Forms.Label();
@@ -143,7 +144,7 @@ namespace HugoLandEditeur.Presentation
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(92, 163);
+            this.btnSelect.Location = new System.Drawing.Point(46, 163);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(92, 32);
             this.btnSelect.TabIndex = 10;
@@ -151,11 +152,22 @@ namespace HugoLandEditeur.Presentation
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(144, 163);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(88, 32);
+            this.btnCancel.TabIndex = 11;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // frmOpen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 230);
+            this.ClientSize = new System.Drawing.Size(321, 229);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
@@ -187,6 +199,7 @@ namespace HugoLandEditeur.Presentation
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.Button btnCancel;
         //private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         //private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         //private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;

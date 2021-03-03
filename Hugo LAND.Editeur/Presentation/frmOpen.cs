@@ -47,6 +47,11 @@ namespace HugoLandEditeur.Presentation
             //mondeBindingSource.Current();
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
+
 
 
         //private void Form1_Load(object sender, System.EventArgs e)
