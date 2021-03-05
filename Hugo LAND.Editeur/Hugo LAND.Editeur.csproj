@@ -193,7 +193,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GameData\AllTiles.bmp" />
+    <Content Include="GameData\AllTiles.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameData\Animations.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -212,11 +214,21 @@
     <Content Include="Resources\rightArrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="GameData\AllTilesLookups.csv" />
-    <None Include="GameData\ClasseHeroLookups.csv" />
-    <None Include="GameData\ItemLookups.csv" />
-    <None Include="GameData\MonstreLookups.csv" />
-    <None Include="GameData\ObjetLookups.csv" />
+    <None Include="GameData\AllTilesLookups.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\ClasseHeroLookups.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\ItemLookups.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\MonstreLookups.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\ObjetLookups.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Hugo_LAND.Core.Models.Classe.datasource" />
     <None Include="Properties\DataSources\Hugo_LAND.Core.Models.CompteJoueur.datasource" />
