@@ -14,7 +14,9 @@ namespace HugoLandEditeur.Presentation
 {
     public partial class frmOpen : Form
     {
-
+        private int m_Width;
+        private int m_Height;
+        private string m_Description;
         private readonly HugoLANDContext context;
 
         public frmOpen()
@@ -26,20 +28,28 @@ namespace HugoLandEditeur.Presentation
 
         private void frmOpen_Load(object sender, EventArgs e)
         {
-            context.Mondes.Load();
-            mondeBindingSource.DataSource = context.Mondes.ToList();
+
+            if (context.Mondes.Count() > 0)
+            {
+                context.Mondes.Load();
+                mondeBindingSource.DataSource = context.Mondes.ToList();
+                getCurrentWorld();
+            }
+            // Mettre erreur ici
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
 
             mondeBindingSource.MoveNext();
+            getCurrentWorld();
 
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             mondeBindingSource.MovePrevious();
+            getCurrentWorld();
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
@@ -52,7 +62,13 @@ namespace HugoLandEditeur.Presentation
             this.DialogResult = DialogResult.Cancel;
         }
 
-
+        private void getCurrentWorld()
+        {
+            Monde currentWorld = (Monde)mondeBindingSource.Current;
+            m_Width = currentWorld.LimiteX;
+            m_Height = currentWorld.LimiteY;
+            m_Description = currentWorld.Description;
+        }
 
         //private void Form1_Load(object sender, System.EventArgs e)
         //{

@@ -352,7 +352,7 @@ namespace HugoLandEditeur
 
                 for (i = 0; i < m_Height; i++)
                     for (j = 0; j < m_Width; j++)
-                        m_Tiles[i, j] = defaulttile;
+                        m_Tiles[i, j] = defaulttile; // Il place la tuile par defaut(32) dans chaque coordonne de la map
 
                 m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
                 m_BackBufferDC = Graphics.FromImage(m_BackBuffer);

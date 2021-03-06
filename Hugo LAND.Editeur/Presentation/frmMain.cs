@@ -523,6 +523,9 @@ namespace HugoLandEditeur
 
         private void LoadMap()
         {
+
+
+
             //DialogResult result;
 
             //dlgLoadMap.Title = "Load Map";
@@ -602,7 +605,7 @@ namespace HugoLandEditeur
                 this.Cursor = Cursors.WaitCursor;
                 try
                 {
-                    bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, f.MapDescription,32);
+                    bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, f.MapDescription, 32);
                     if (bResult)
                     {
                         m_bOpen = true;
