@@ -47,7 +47,6 @@ namespace HugoLandEditeur
 		private System.Windows.Forms.MenuItem mnuFileOpen;
 		private System.Windows.Forms.MenuItem mnuFileClose;
 		private System.Windows.Forms.MenuItem menuItem4;
-		private System.Windows.Forms.MenuItem mnuCreateNewUser;
 		private System.Windows.Forms.MenuItem menuItem6;
 		private System.Windows.Forms.MenuItem mnuFileSave;
 
@@ -102,7 +101,6 @@ namespace HugoLandEditeur
             this.mnuZoomX8 = new System.Windows.Forms.MenuItem();
             this.mnuZoomX16 = new System.Windows.Forms.MenuItem();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.mnuCreateNewUser = new System.Windows.Forms.MenuItem();
             this.mnuManage = new System.Windows.Forms.MenuItem();
             this.mnuManageCreateUser = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
@@ -208,10 +206,8 @@ namespace HugoLandEditeur
             this.mnuSettings.Index = 1;
             this.mnuSettings.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuZoom,
-            this.menuItem1,
-            this.mnuCreateNewUser});
+            this.menuItem1});
             this.mnuSettings.Text = "&Settings";
-            this.mnuSettings.Visible = false;
             // 
             // mnuZoom
             // 
@@ -258,11 +254,6 @@ namespace HugoLandEditeur
             // 
             this.menuItem1.Index = 1;
             this.menuItem1.Text = "-";
-            // 
-            // mnuCreateNewUser
-            // 
-            this.mnuCreateNewUser.Index = 2;
-            this.mnuCreateNewUser.Text = "Create a new user";
             // 
             // mnuManage
             // 

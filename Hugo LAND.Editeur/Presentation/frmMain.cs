@@ -632,8 +632,8 @@ namespace HugoLandEditeur
             bEnabled = m_bOpen;
             mnuFileSave.Enabled = bEnabled;
             mnuFileClose.Enabled = bEnabled;
-            mnuCreateNewUser.Enabled = bEnabled;
-            mnuZoom.Enabled = bEnabled;
+            //mnuManageCreateUser.Enabled = bEnabled;
+            //mnuZoom.Enabled = bEnabled;
             tbbSave.Enabled = bEnabled;
         }
 
