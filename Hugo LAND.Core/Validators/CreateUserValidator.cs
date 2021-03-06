@@ -5,11 +5,10 @@ namespace Hugo_LAND.Core.Validators
 {
     public class CreateUserValidator : AbstractValidator<CreateUser>
     {
-
         private const string FIRST_NAME_REGEX = @"^[\w\-\s\']+$";
         private const string LAST_NAME_REGEX = @"^[\w\-\s\']+$";
-        private const string USERNAME_REGEX = @"^(?=.{6,20}$)[a-zA-Z0-9]$";
-        private const string PASSWORD_REGEX = @"^(?=.*[a - z])(?=.*[A - Z])(?=.*\d)[a - zA - Z\d]{8,20}$";
+        private const string USERNAME_REGEX = @"^([a-zA-Z0-9]){6,20}$";
+        private const string PASSWORD_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,20})";
         private const int FIRST_NAME_MIN_LENGTH = 2;
         private const int FIRST_NAME_MAX_LENGTH = 50;
         private const int LAST_NAME_MIN_LENGTH = 2;
@@ -29,21 +28,16 @@ namespace Hugo_LAND.Core.Validators
             RuleFor(c => c.MotDePasse)
                 .NotEmpty()
                 .WithMessage("Please provide a password.")
-                .Length(8, 20)
                 .Matches(PASSWORD_REGEX)
                 .WithMessage("Please provide a valid password (8 to 20 characters, at least one uppercase letter, one lowercase letter and one number.");
             
-            //lettres et nombres et caractères spéciaux, 8 - 20 length 
 
             //Password confirmation
-            //Password
             RuleFor(c => c.MotDePasseConfirmation)
                 .NotEmpty()
                 .WithMessage("Please confirm your password.")
                 .Equal(x => x.MotDePasse)
                 .WithMessage("The passwords do not match.");
-
-
 
             //Firstname
             RuleFor(c => c.Prenom)
@@ -62,6 +56,7 @@ namespace Hugo_LAND.Core.Validators
                 .WithMessage($"Please provide a last name between {LAST_NAME_MIN_LENGTH} and {LAST_NAME_MAX_LENGTH} caracters.")
                 .Matches(LAST_NAME_REGEX)
                  .WithMessage("Please provide a VALID last name (only letters, hyphen, spaces and apostrophe are authorized).");
+
             //Email
             RuleFor(c => c.Courriel)
                 .NotEmpty()
@@ -73,12 +68,6 @@ namespace Hugo_LAND.Core.Validators
             RuleFor(c => c.TypeUtilisateur)
                 .NotEmpty()
                 .WithMessage("Please provide select a type of user.");
-
-
-
-
         }
-
-
     }
 }

@@ -33,7 +33,9 @@
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.AcceptButton = btnLogin;
             this.btnCancel = new System.Windows.Forms.Button();
+            this.CancelButton = btnCancel;
             this.SuspendLayout();
             // 
             // lblUser

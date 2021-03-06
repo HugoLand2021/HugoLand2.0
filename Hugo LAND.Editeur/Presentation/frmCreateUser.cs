@@ -19,6 +19,8 @@ namespace HugoLandEditeur.Presentation
         {
             InitializeComponent();
             createUserValidator = new CreateUserValidator();
+            comboUserType.DataSource = Enum.GetValues(typeof(TypeUtilisateur));
+            comboUserType.SelectedItem = TypeUtilisateur.Utilisateur; // Default choice
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -29,8 +31,9 @@ namespace HugoLandEditeur.Presentation
                 Courriel = txtEmail.Text,
                 Prenom = txtFirstName.Text,
                 Nom = txtLastName.Text,
-                TypeUtilisateur = (TypeUtilisateur)comboUserType.SelectedValue, //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH ICIIIIIIIIIIIIIIIII REFAIRE
-                MotDePasse = txtPassword.Text
+                TypeUtilisateur = (TypeUtilisateur)comboUserType.SelectedItem,
+                MotDePasse = txtPassword.Text,
+                MotDePasseConfirmation = txtPasswordConfirmation.Text
             };
 
             var result = createUserValidator.Validate(u);
