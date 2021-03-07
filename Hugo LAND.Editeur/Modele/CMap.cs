@@ -295,27 +295,22 @@ namespace HugoLandEditeur
             // Build Backbuffer
             //m_Width = width;
             //m_Height = height;
+            m_Height = monde.LimiteY;
+            m_Width = monde.LimiteX;
             m_Tiles = new int[monde.LimiteY, monde.LimiteX];
 
 
             for (int i = 0; i < monde.LimiteY; i++)
-            {
                 for (int j = 0; j < monde.LimiteX; j++)
-                {
+                    m_Tiles[i, j] = 32;
 
-                    try
-                    {
-                        m_Tiles[i, j] = ((List<ObjetMonde>)monde.ObjetMondes).Find(m => m.x == j && m.y == i).TypeObjet;
-                    }
-                    catch {
-                        m_Tiles[i, j] = 32;
-                    }
-                }
-            }
+            foreach (ObjetMonde objetMonde in monde.ObjetMondes)
+                m_Tiles[objetMonde.y, objetMonde.x] = objetMonde.TypeObjet;
+
+
 
             m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
             m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
-            Refresh();
             //while (sr.Peek() >= 0)
             //{
             //    strLine = sr.ReadLine();
@@ -349,7 +344,7 @@ namespace HugoLandEditeur
             return 0;
         }
 
-        public bool CreateNew(int width, int height, string description,int defaulttile)
+        public bool CreateNew(int width, int height, string description, int defaulttile)
         {
             int i, j;
 
