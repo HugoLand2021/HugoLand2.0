@@ -14,6 +14,7 @@ namespace HugoLandEditeur.Presentation
 {
     public partial class frmOpen : Form
     {
+        private int m_id;
         private int m_Width;
         private int m_Height;
         private string m_Description;
@@ -65,9 +66,10 @@ namespace HugoLandEditeur.Presentation
         private void getCurrentWorld()
         {
             Monde currentWorld = (Monde)mondeBindingSource.Current;
-            m_Width = currentWorld.LimiteX;
-            m_Height = currentWorld.LimiteY;
-            m_Description = currentWorld.Description;
+            //m_Width = currentWorld.LimiteX;
+            //m_Height = currentWorld.LimiteY;
+            //m_Description = currentWorld.Description;
+            //m_id = currentWorld.Id;
         }
 
         //private void Form1_Load(object sender, System.EventArgs e)

@@ -1,4 +1,5 @@
-﻿using HugoLandEditeur.Presentation;
+﻿using Hugo_LAND.Core.Models;
+using HugoLandEditeur.Presentation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace HugoLandEditeur
 
 
         private CMap m_Map;
+        private Monde m_CurrentWorld;
         private CTileLibrary m_TileLibrary;
         private int m_XSel;
         private int m_YSel;
@@ -79,6 +81,7 @@ namespace HugoLandEditeur
         private void frmMain_Load(object sender, System.EventArgs e)
         {
             m_Map = new CMap();
+            m_CurrentWorld = new Monde();
             m_TileLibrary = new CTileLibrary();
             m_Map.TileLibrary = m_TileLibrary;
 
@@ -606,6 +609,9 @@ namespace HugoLandEditeur
                 try
                 {
                     bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, f.MapDescription, 32);
+                    m_CurrentWorld.LimiteX = m_Map.Width;
+                    m_CurrentWorld.LimiteY = m_Map.Height;
+                    m_CurrentWorld.Description = m_Map.Description;
                     if (bResult)
                     {
                         m_bOpen = true;
