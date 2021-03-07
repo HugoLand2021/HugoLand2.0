@@ -229,24 +229,24 @@ namespace HugoLandEditeur
 
         public int Load(Monde monde)
         {
-            FileStream file;
-            StreamReader sr;
-            String strLine;
-            int index;
-            char[] delim = { ':' };
-            char[] delim2 = { ',' };
-            int id = -1;
-            int width = -1;
-            int height = -1;
-            int data = -1;
-            String strVar;
-            String strValue;
-            String[] arrValues;
-            int count;
-            int[] arrData;
-            int rowcount = 0;
+            //FileStream file;
+            //StreamReader sr;
+            //String strLine;
+            //int index;
+            //char[] delim = { ':' };
+            //char[] delim2 = { ',' };
+            //int id = -1;
+            //int width = -1;
+            //int height = -1;
+            //int data = -1;
+            //String strVar;
+            //String strValue;
+            //String[] arrValues;
+            //int count;
+            //int[] arrData;
+            //int rowcount = 0;
 
-            arrData = new int[128];
+            //arrData = new int[128];
 
             //try
             //{
@@ -285,37 +285,37 @@ namespace HugoLandEditeur
             //    }
             //}
 
-            if (width <= 0 || height <= 0 || data < 0 || id < 0)
-                return -1;
-            if (width < 8 || width > csteApplication.MAP_MAX_WIDTH)
-                return -1;
-            if (height < 8 || height > csteApplication.MAP_MAX_HEIGHT)
-                return -1;
+            //if (width <= 0 || height <= 0 || data < 0 || id < 0)
+            //    return -1;
+            //if (width < 8 || width > csteApplication.MAP_MAX_WIDTH)
+            //    return -1;
+            //if (height < 8 || height > csteApplication.MAP_MAX_HEIGHT)
+            //    return -1;
 
             // Build Backbuffer
-            m_Width = width;
-            m_Height = height;
-            m_Tiles = new int[m_Height, m_Width];
-            m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
-            m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
+            //m_Width = width;
+            //m_Height = height;
+            m_Tiles = new int[monde.LimiteY, monde.LimiteX];
 
-            for (int i = 0; i < m_Height; i++)
+
+            for (int i = 0; i < monde.LimiteY; i++)
             {
-                for (int j = 0; j < m_Width; j++)
+                for (int j = 0; j < monde.LimiteX; j++)
                 {
 
                     try
                     {
-                        m_Tiles[i, j] = ((List<ObjetMonde>)monde.ObjetMondes).Find(m => m.x == j && m.y == i).Id;
+                        m_Tiles[i, j] = ((List<ObjetMonde>)monde.ObjetMondes).Find(m => m.x == j && m.y == i).TypeObjet;
                     }
                     catch {
-                        m_Tiles[i, j] = m_DefaultTileID;
+                        m_Tiles[i, j] = 32;
                     }
                 }
             }
 
-
-
+            m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
+            m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
+            Refresh();
             //while (sr.Peek() >= 0)
             //{
             //    strLine = sr.ReadLine();

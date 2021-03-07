@@ -200,8 +200,7 @@ namespace HugoLandEditeur
 
         private void mnuFileOpen_Click(object sender, System.EventArgs e)
         {
-            frmOpen f = new frmOpen();
-            f.ShowDialog(this);
+            LoadMap();
         }
 
         private void mnuFileSave_Click(object sender, System.EventArgs e)
@@ -529,23 +528,37 @@ namespace HugoLandEditeur
         }
         #endregion
 
-        public void LoadMap()
+        private void LoadMap()
         {
 
+            frmOpen o;
+            DialogResult result;
+            bool bResult;
+
+            o = new frmOpen();
+
+            result = o.ShowDialog(this);
+            m_CurrentWorld = o.CurrentWorld;
             m_bOpen = false;
             picMap.Visible = false;
             this.Cursor = Cursors.WaitCursor;
-            try
+            if (result == DialogResult.OK)
             {
-                m_Map.Load(m_CurrentWorld);
-                m_bOpen = true;
-                m_bRefresh = true;
-                m_bResize = true;
-                picMap.Visible = true;
-            }
-            catch
-            {
-                Console.WriteLine("Error Loading...");
+                m_bOpen = false;
+                picMap.Visible = false;
+                this.Cursor = Cursors.WaitCursor;
+                try
+                {
+                    m_Map.Load(m_CurrentWorld);
+                    m_bOpen = true;
+                    m_bRefresh = true;
+                    m_bResize = true;
+                    picMap.Visible = true;
+                }
+                catch
+                {
+                    Console.WriteLine("Error Loading...");
+                }
             }
             m_MenuLogic();
             this.Cursor = Cursors.Default;

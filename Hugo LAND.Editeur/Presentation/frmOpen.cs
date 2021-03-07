@@ -14,10 +14,6 @@ namespace HugoLandEditeur.Presentation
 {
     public partial class frmOpen : Form
     {
-        private int m_id;
-        private int m_Width;
-        private int m_Height;
-        private string m_Description;
         private Monde m_currentworld;
         private readonly HugoLANDContext context;
 
@@ -26,6 +22,18 @@ namespace HugoLandEditeur.Presentation
             InitializeComponent();
             context = new HugoLANDContext();
             
+        }
+
+        public Monde CurrentWorld
+        {
+            get
+            {
+                return m_currentworld;
+            }
+            set
+            {
+                m_currentworld = value;
+            }
         }
 
         private void frmOpen_Load(object sender, EventArgs e)
@@ -56,9 +64,8 @@ namespace HugoLandEditeur.Presentation
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            frmMain parent = (frmMain)this.Owner;
-            parent.SetCurrentWorld((Monde)mondeBindingSource.Current);
-            parent.LoadMap();
+            m_currentworld = getCurrentWorld();
+            this.DialogResult = DialogResult.OK;
             this.Close();
             //mondeBindingSource.Current();
         }
