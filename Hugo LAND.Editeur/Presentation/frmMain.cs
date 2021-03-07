@@ -19,6 +19,7 @@ namespace HugoLandEditeur
         private CMap m_Map;
         private Monde m_CurrentWorld;
         private CTileLibrary m_TileLibrary;
+        private ObjetMonde m_Obj;
         private int m_XSel;
         private int m_YSel;
         private int m_TilesHoriz;
@@ -32,6 +33,7 @@ namespace HugoLandEditeur
         private int m_ActiveXIndex;
         private int m_ActiveYIndex;
         private readonly frmLogin loginForm;
+        private bool m_WorldOpen = false;
 
         internal void ConnectionReussie()
         {
@@ -88,6 +90,7 @@ namespace HugoLandEditeur
             m_CurrentWorld = new Monde();
             m_TileLibrary = new CTileLibrary();
             m_Map.TileLibrary = m_TileLibrary;
+            m_Obj = new ObjetMonde();
 
             picMap.Parent = picEditArea;
             picMap.Left = 0;
@@ -414,6 +417,14 @@ namespace HugoLandEditeur
         {
             //hUGO : mODIFIER ICI POUR AVOIR le tile et le type
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
+            //m_Obj.x = m_ActiveTileXIndex;
+            //m_Obj.y = m_ActiveTileYIndex;
+            //m_Obj.TypeObjet = m_ActiveTileID;
+            //m_Obj.Monde = m_CurrentWorld;
+            //m_Obj.Description = m_TileLibrary.ObjMonde.
+
+            //m_CurrentWorld.ObjetMondes.Add(m_Obj);
+            Dictionary<string, Tile> arnaud = m_TileLibrary.ObjMonde; 
 
             m_bRefresh = true;
         }
@@ -538,12 +549,12 @@ namespace HugoLandEditeur
             o = new frmOpen();
 
             result = o.ShowDialog(this);
-            m_CurrentWorld = o.CurrentWorld;
             m_bOpen = false;
             picMap.Visible = false;
             this.Cursor = Cursors.WaitCursor;
             if (result == DialogResult.OK)
             {
+                m_CurrentWorld = o.CurrentWorld;
                 m_bOpen = false;
                 picMap.Visible = false;
                 this.Cursor = Cursors.WaitCursor;
@@ -554,6 +565,7 @@ namespace HugoLandEditeur
                     m_bRefresh = true;
                     m_bResize = true;
                     picMap.Visible = true;
+                    m_WorldOpen = true;
                 }
                 catch
                 {
@@ -598,6 +610,7 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void m_SaveMap()
         {
+            m_Map.Save(m_CurrentWorld, m_WorldOpen);
             //DialogResult result;
 
             //dlgSaveMap.Title = "Save Map";

@@ -204,25 +204,18 @@ namespace HugoLandEditeur
 
         }
 
-        public int Save(String strFilename)
+        public int Save(Monde monde, bool worldOpen)
         {
-            //int i,j;
+            
+            if (worldOpen)
+            {
+               
+                // Ici Modifier monde Existant
+            }
+            else
+            {
 
-            //FileStream file = new FileStream(strFilename, FileMode.Create, FileAccess.Write);
-            //StreamWriter sw = new StreamWriter(file);
-
-            //sw.WriteLine("ID: {0}",MAPFILE_ID.ToString());
-            //sw.WriteLine("WIDTH: {0}",m_Width.ToString());
-            //sw.WriteLine("HEIGHT: {0}",m_Height.ToString());
-            //sw.WriteLine("DATA:");
-
-            //for (i=0; i<m_Height; i++)
-            //{
-            //    for (j=0; j<m_Width; j++)
-            //        sw.Write("{0},", m_Tiles[i,j]);
-            //    sw.WriteLine();
-            //}
-            //sw.Close();
+            }
 
             return 0;
         }
@@ -300,9 +293,9 @@ namespace HugoLandEditeur
             m_Tiles = new int[monde.LimiteY, monde.LimiteX];
 
 
-            for (int i = 0; i < monde.LimiteY; i++)
-                for (int j = 0; j < monde.LimiteX; j++)
-                    m_Tiles[i, j] = 32;
+            //for (int i = 0; i < monde.LimiteY; i++)
+            //    for (int j = 0; j < monde.LimiteX; j++)
+            //        m_Tiles[i, j] = 32;
 
             foreach (ObjetMonde objetMonde in monde.ObjetMondes)
                 m_Tiles[objetMonde.y, objetMonde.x] = objetMonde.TypeObjet;
