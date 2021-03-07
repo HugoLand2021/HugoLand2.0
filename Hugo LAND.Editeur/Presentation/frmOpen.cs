@@ -18,6 +18,7 @@ namespace HugoLandEditeur.Presentation
         private int m_Width;
         private int m_Height;
         private string m_Description;
+        private Monde m_currentworld;
         private readonly HugoLANDContext context;
 
         public frmOpen()
@@ -55,6 +56,10 @@ namespace HugoLandEditeur.Presentation
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
+            frmMain parent = (frmMain)this.Owner;
+            parent.SetCurrentWorld((Monde)mondeBindingSource.Current);
+            parent.LoadMap();
+            this.Close();
             //mondeBindingSource.Current();
         }
 
@@ -63,9 +68,10 @@ namespace HugoLandEditeur.Presentation
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void getCurrentWorld()
+        private Monde getCurrentWorld()
         {
-            Monde currentWorld = (Monde)mondeBindingSource.Current;
+            return (Monde)mondeBindingSource.Current;
+            //Monde currentWorld = (Monde)mondeBindingSource.Current;
             //m_Width = currentWorld.LimiteX;
             //m_Height = currentWorld.LimiteY;
             //m_Description = currentWorld.Description;

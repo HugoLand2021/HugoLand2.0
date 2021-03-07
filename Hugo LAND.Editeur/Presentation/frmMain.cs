@@ -16,7 +16,6 @@ namespace HugoLandEditeur
     public partial class frmMain : Form
     {
 
-
         private CMap m_Map;
         private Monde m_CurrentWorld;
         private CTileLibrary m_TileLibrary;
@@ -42,7 +41,7 @@ namespace HugoLandEditeur
 
         private int m_ActiveTileID;
         private int m_ActiveTileXIndex;
-        private int m_ActiveTileYIndex;		
+        private int m_ActiveTileYIndex;
 
         /// <summary>
         /// Summary description for Form1.
@@ -70,8 +69,13 @@ namespace HugoLandEditeur
             loginForm = new frmLogin(this);
             //DialogResult result;
             //bool bResult;
-            
 
+
+        }
+
+        public void SetCurrentWorld(Monde monde)
+        {
+            m_CurrentWorld = monde;
         }
 
         /* -------------------------------------------------------------- *\
@@ -196,7 +200,8 @@ namespace HugoLandEditeur
 
         private void mnuFileOpen_Click(object sender, System.EventArgs e)
         {
-            LoadMap();
+            frmOpen f = new frmOpen();
+            f.ShowDialog(this);
         }
 
         private void mnuFileSave_Click(object sender, System.EventArgs e)
@@ -524,9 +529,26 @@ namespace HugoLandEditeur
         }
         #endregion
 
-        private void LoadMap()
+        public void LoadMap()
         {
 
+            m_bOpen = false;
+            picMap.Visible = false;
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                m_Map.Load(m_CurrentWorld);
+                m_bOpen = true;
+                m_bRefresh = true;
+                m_bResize = true;
+                picMap.Visible = true;
+            }
+            catch
+            {
+                Console.WriteLine("Error Loading...");
+            }
+            m_MenuLogic();
+            this.Cursor = Cursors.Default;
 
 
             //DialogResult result;
@@ -676,7 +698,7 @@ namespace HugoLandEditeur
 
         private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            
+
             ComboItem myItem;
             myItem = (ComboItem)cboZoom.SelectedItem;
             ResetScroll();

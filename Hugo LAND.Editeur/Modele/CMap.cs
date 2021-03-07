@@ -1,8 +1,10 @@
 
+using Hugo_LAND.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace HugoLandEditeur
 {
@@ -225,28 +227,26 @@ namespace HugoLandEditeur
             return 0;
         }
 
-        public int Load(String strFilename)
+        public int Load(Monde monde)
         {
-            //int i;
+            FileStream file;
+            StreamReader sr;
+            String strLine;
+            int index;
+            char[] delim = { ':' };
+            char[] delim2 = { ',' };
+            int id = -1;
+            int width = -1;
+            int height = -1;
+            int data = -1;
+            String strVar;
+            String strValue;
+            String[] arrValues;
+            int count;
+            int[] arrData;
+            int rowcount = 0;
 
-            //FileStream file;						
-            //StreamReader sr;
-            //String strLine;
-            //int index;
-            //char[] delim = {':'};
-            //char[] delim2 = {','};
-            //int id = -1;
-            //int width = -1;
-            //int height = -1;
-            //int data = -1;
-            //String strVar;
-            //String strValue;
-            //String[] arrValues;
-            //int count;
-            //int[] arrData;
-            //int rowcount = 0;
-
-            //arrData = new int[128];
+            arrData = new int[128];
 
             //try
             //{
@@ -258,16 +258,16 @@ namespace HugoLandEditeur
             //    return -1;
             //}
 
-            //while(sr.Peek() >= 0)
-            //{					
+            //while (sr.Peek() >= 0)
+            //{
             //    strLine = sr.ReadLine();
             //    index = strLine.IndexOfAny(delim);
             //    if (index > 0)
             //    {
-            //        strVar = strLine.Substring(0,index);
-            //        strVar = strVar.Trim();					
+            //        strVar = strLine.Substring(0, index);
+            //        strVar = strVar.Trim();
             //        strVar = strVar.ToLower();
-            //        strValue = strLine.Substring(index+1);
+            //        strValue = strLine.Substring(index + 1);
             //        strValue = strValue.Trim();
             //        strValue = strValue.ToLower();
 
@@ -279,27 +279,44 @@ namespace HugoLandEditeur
             //            height = Convert.ToInt32(strValue);
             //        else if (strVar == "data")
             //        {
-            //            data = 1;						
+            //            data = 1;
             //            break;
             //        }
             //    }
             //}
 
-            //if (width <= 0 || height <=0 || data < 0 || id < 0)
-            //    return -1;
-            //if (width < 8 || width > MAP_MAX_WIDTH)
-            //    return -1;
-            //if (height < 8 || height > MAP_MAX_HEIGHT)
-            //    return -1;
+            if (width <= 0 || height <= 0 || data < 0 || id < 0)
+                return -1;
+            if (width < 8 || width > csteApplication.MAP_MAX_WIDTH)
+                return -1;
+            if (height < 8 || height > csteApplication.MAP_MAX_HEIGHT)
+                return -1;
 
-            //// Build Backbuffer
-            //m_Width = width;
-            //m_Height = height;
-            //m_Tiles = new int[m_Height,m_Width];
-            //m_BackBuffer = new Bitmap(m_Width * TILE_WIDTH_IN_MAP, m_Height * TILE_HEIGHT_IN_MAP);
-            //m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
+            // Build Backbuffer
+            m_Width = width;
+            m_Height = height;
+            m_Tiles = new int[m_Height, m_Width];
+            m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
+            m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
 
-            //while(sr.Peek() >= 0)
+            for (int i = 0; i < m_Height; i++)
+            {
+                for (int j = 0; j < m_Width; j++)
+                {
+
+                    try
+                    {
+                        m_Tiles[i, j] = ((List<ObjetMonde>)monde.ObjetMondes).Find(m => m.x == j && m.y == i).Id;
+                    }
+                    catch {
+                        m_Tiles[i, j] = m_DefaultTileID;
+                    }
+                }
+            }
+
+
+
+            //while (sr.Peek() >= 0)
             //{
             //    strLine = sr.ReadLine();
             //    strLine = strLine.Trim();
@@ -308,26 +325,26 @@ namespace HugoLandEditeur
             //        arrValues = strLine.Split(delim2);
 
             //        count = 0;
-            //        for (i=0; i<=arrValues.GetUpperBound(0); i++)
+            //        for (i = 0; i <= arrValues.GetUpperBound(0); i++)
             //        {
             //            strValue = arrValues[i].Trim();
             //            if (strValue.Length > 0)
             //            {
-            //                arrData[count] = Convert.ToByte(arrValues[i],10);
+            //                arrData[count] = Convert.ToByte(arrValues[i], 10);
             //                count++;
             //            }
             //        }
             //        if (count != width)
             //            return -1;
 
-            //        for (i=0; i<width; i++)
-            //            m_Tiles[rowcount,i] = arrData[i];
+            //        for (i = 0; i < width; i++)
+            //            m_Tiles[rowcount, i] = arrData[i];
             //        rowcount++;
             //    }
-            //}			
+            //}
             //sr.Close();
 
-            //Refresh();
+            Refresh();
 
             return 0;
         }
