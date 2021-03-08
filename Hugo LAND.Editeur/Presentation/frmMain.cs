@@ -20,6 +20,8 @@ namespace HugoLandEditeur
         private Monde m_CurrentWorld;
         private CTileLibrary m_TileLibrary;
         private List<ObjetMonde> m_LObj;
+        private List<Monstre> m_LMonstre;
+        private List<Item> m_LItem;
         private int m_XSel;
         private int m_YSel;
         private int m_TilesHoriz;
@@ -86,6 +88,8 @@ namespace HugoLandEditeur
             m_TileLibrary = new CTileLibrary();
             m_Map.TileLibrary = m_TileLibrary;
             m_LObj = new List<ObjetMonde>();
+            m_LMonstre = new List<Monstre>();
+            m_LItem = new List<Item>();
             picMap.Parent = picEditArea;
             picMap.Left = 0;
             picMap.Top = 0;
@@ -757,8 +761,19 @@ namespace HugoLandEditeur
 
             if (tileSelected.TypeObjet == TypeTile.ObjetMonde)
             {
-                string arnaud = "jouese";
-                arnaud = "ninjapower";
+                ObjetMonde objToAdd = new ObjetMonde();
+                objToAdd.TypeObjet = tileSelected.IndexTypeObjet;
+                objToAdd.x = x;
+                objToAdd.y = y;
+                objToAdd.Monde = m_CurrentWorld;
+                objToAdd.Description = tileSelected.Name;
+
+                m_LObj.Add(objToAdd);
+            }
+            if (tileSelected.TypeObjet == TypeTile.Item)
+            {
+                Item itemToAdd = new Item();
+                itemToAdd.Nom = tileSelected.Name;
             }
         }
     }
