@@ -59,6 +59,7 @@
     <Compile Include="Models\EffetItemCRUD.cs" />
     <Compile Include="Models\HeroCRUD.cs" />
     <Compile Include="Models\ItemCRUD.cs" />
+    <Compile Include="Models\ModifAdmin.cs" />
     <Compile Include="Models\MondeCRUD.cs" />
     <Compile Include="Models\Classe.cs">
       <DependentUpon>HugoLANDModel.tt</DependentUpon>
@@ -122,6 +123,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Validators\CreateUserValidator.cs" />
+    <Compile Include="Validators\ModifAdminValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\HugoLANDModel.edmx">
