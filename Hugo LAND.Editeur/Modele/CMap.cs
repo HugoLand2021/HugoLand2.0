@@ -353,6 +353,9 @@ namespace HugoLandEditeur
 
             try
             {
+                //Création du monde via le server
+                MondeCRUD.CreerMonde(description, width, height);
+
                 m_Tiles = new int[m_Height, m_Width];
 
                 for (i = 0; i < m_Height; i++)

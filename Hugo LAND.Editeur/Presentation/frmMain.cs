@@ -75,11 +75,6 @@ namespace HugoLandEditeur
 
         }
 
-        public void SetCurrentWorld(Monde monde)
-        {
-            m_CurrentWorld = monde;
-        }
-
         /* -------------------------------------------------------------- *\
         frmMain_Load()			
         - Main Form Initialization		

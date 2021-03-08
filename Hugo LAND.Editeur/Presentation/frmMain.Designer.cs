@@ -519,7 +519,7 @@ namespace HugoLandEditeur
             this.Controls.Add(this.picEditArea);
             this.Menu = this.mbMain;
             this.Name = "frmMain";
-            this.Text = "Éditeur de monde Hugo Land";
+            this.Text = "Hugo Land\'s world editor";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.panelTools.ResumeLayout(false);
