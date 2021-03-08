@@ -37,7 +37,7 @@ namespace HugoLandEditeur
             try
             {
                 Name = tileData[0];
-                IndexTypeObjet = Convert.ToInt32(tileData[1]);
+                IndexTypeObjet = (Convert.ToInt32(tileData[5]) - 1) * 32 + (Convert.ToInt32(tileData[4]) - 1);
                 Category = tileData[2].ToLower();
                 Bitmap = _bitmaps[tileData[3]];
                 NumberOfFrames = Convert.ToInt32(tileData[7]);

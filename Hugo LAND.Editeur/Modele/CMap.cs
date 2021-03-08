@@ -293,9 +293,9 @@ namespace HugoLandEditeur
             m_Tiles = new int[monde.LimiteY, monde.LimiteX];
 
 
-            //for (int i = 0; i < monde.LimiteY; i++)
-            //    for (int j = 0; j < monde.LimiteX; j++)
-            //        m_Tiles[i, j] = 32;
+            for (int i = 0; i < monde.LimiteY; i++)
+                for (int j = 0; j < monde.LimiteX; j++)
+                    m_Tiles[i, j] = 32;
 
             foreach (ObjetMonde objetMonde in monde.ObjetMondes)
                 m_Tiles[objetMonde.y, objetMonde.x] = objetMonde.TypeObjet;
