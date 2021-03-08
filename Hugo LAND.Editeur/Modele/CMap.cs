@@ -144,6 +144,11 @@ namespace HugoLandEditeur
 
         }
 
+        public int getMapTileType(int x, int y)
+        {
+            return m_Tiles[x, y];
+        }
+
         public void Refresh()
         {
             int i;
@@ -219,6 +224,7 @@ namespace HugoLandEditeur
 
             return 0;
         }
+
 
         public int Load(Monde monde)
         {

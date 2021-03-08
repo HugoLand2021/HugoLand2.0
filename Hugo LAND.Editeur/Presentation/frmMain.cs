@@ -19,7 +19,7 @@ namespace HugoLandEditeur
         private CMap m_Map;
         private Monde m_CurrentWorld;
         private CTileLibrary m_TileLibrary;
-        private ObjetMonde m_Obj;
+        private List<ObjetMonde> m_LObj;
         private int m_XSel;
         private int m_YSel;
         private int m_TilesHoriz;
@@ -85,8 +85,7 @@ namespace HugoLandEditeur
             m_CurrentWorld = new Monde();
             m_TileLibrary = new CTileLibrary();
             m_Map.TileLibrary = m_TileLibrary;
-            m_Obj = new ObjetMonde();
-
+            m_LObj = new List<ObjetMonde>();
             picMap.Parent = picEditArea;
             picMap.Left = 0;
             picMap.Top = 0;
@@ -412,6 +411,8 @@ namespace HugoLandEditeur
         {
             //hUGO : mODIFIER ICI POUR AVOIR le tile et le type
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
+
+            modificationMap(m_ActiveTileXIndex, m_ActiveYIndex, m_ActiveTileID);
             //m_Obj.x = m_ActiveTileXIndex;
             //m_Obj.y = m_ActiveTileYIndex;
             //m_Obj.TypeObjet = m_ActiveTileID;
@@ -419,7 +420,6 @@ namespace HugoLandEditeur
             //m_Obj.Description = m_TileLibrary.ObjMonde.
 
             //m_CurrentWorld.ObjetMondes.Add(m_Obj);
-            Dictionary<string, Tile> arnaud = m_TileLibrary.ObjMonde; 
 
             m_bRefresh = true;
         }
@@ -746,6 +746,20 @@ namespace HugoLandEditeur
             //Create admin
             frmAdmin f = new frmAdmin();
             f.ShowDialog();
+        }
+
+        private void modificationMap(int x, int y, int tileID)
+        {
+            if (m_Map.getMapTileType(x, y) == tileID)
+                return;
+
+            Tile tileSelected = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == tileID).First();
+
+            if (tileSelected.TypeObjet == TypeTile.ObjetMonde)
+            {
+                string arnaud = "jouese";
+                arnaud = "ninjapower";
+            }
         }
     }
 }
