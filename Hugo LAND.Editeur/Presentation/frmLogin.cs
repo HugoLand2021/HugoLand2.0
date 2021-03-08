@@ -13,7 +13,7 @@ namespace HugoLandEditeur
 {
     public partial class frmLogin : Form
     {
-        private bool EstConnecte =  false;
+        private bool EstConnecte = false;
         private readonly frmMain mainForm;
 
         public frmLogin(frmMain mainForm)
@@ -25,25 +25,23 @@ namespace HugoLandEditeur
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            using (var context = new HugoLANDContext())
+
+            if (CompteJoueursCRUD.ValideAdmin(txtUserName.Text, txtPwd.Text) == "SUCCESS")
             {
-                var compte = context.CompteJoueurs.Where(c => c.TypeUtilisateur == TypeUtilisateur.Admin).ToList();
-
-                if (CompteJoueursCRUD.ValideJoueur(txtUserName.Text, txtPwd.Text) == "SUCCESS" && txtUserName.Text == compte.Find(c=>c.NomJoueur == txtUserName.Text).NomJoueur) {
-                    EstConnecte = true;
-                    mainForm.ConnectionReussie();
-                    this.Close();
-                }
-                else
-                    MessageBox.Show("The username or password is incorrect!\r\nOr you are not an administrator!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                EstConnecte = true;
+                mainForm.ConnectionReussie();
+                this.Close();
             }
+            else
+                MessageBox.Show("The username or password is incorrect!\r\nOr you are not an administrator!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
         }
 
+
         private void btnCancel_Click(object sender, EventArgs e) => Application.Exit();
 
-        private void frmLogin_FormClosed(object sender, FormClosedEventArgs e) { 
+        private void frmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
             if (!EstConnecte)
                 Application.Exit();
         }
