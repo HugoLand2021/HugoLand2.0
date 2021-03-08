@@ -48,12 +48,31 @@ namespace Hugo_LAND.Core.Models
 
         }
 
-        public static string ValideJoueur(string nom, string mdp)
+        public static string ValideJoueur(string nomJoueur, string mdp)
         {
             ObjectParameter message = new ObjectParameter("message", typeof(string));
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.Connexion(nom, mdp, message);
+                context.Connexion(nomJoueur, mdp, message);
+                return (string)message.Value;
+            }
+        }
+
+        public static string ValideAdmin(string nomJoueur, string mdp)
+        {
+            ObjectParameter message = new ObjectParameter("message", typeof(string));
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                try {
+                    if (context.CompteJoueurs.Where(c => c.NomJoueur == nomJoueur).FirstOrDefault().TypeUtilisateur != TypeUtilisateur.Admin)
+                        return "INCORRECT";
+                } catch {
+                    return "INCORRECT";
+                }
+
+                //var compte = context.CompteJoueurs.Where(c =>c.NomJoueur == nomJoueur &&
+                //                                         c.TypeUtilisateur == TypeUtilisateur.Admin).ToList();
+                context.Connexion(nomJoueur, mdp, message);
                 return (string)message.Value;
             }
         }
