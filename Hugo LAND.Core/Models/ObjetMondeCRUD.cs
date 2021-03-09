@@ -36,6 +36,22 @@ namespace Hugo_LAND.Core.Models
             }
         }
 
+        public static void AjouterPlusieursObjetsMonde(Monde monde, List<ObjetMonde> liste)
+        {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                foreach (var om in liste)
+                    context.Mondes.Find(monde.Id).ObjetMondes.Add(new ObjetMonde
+                    {
+                        x = om.x,
+                        y = om.y,
+                        Description = om.Description,
+                        TypeObjet = om.TypeObjet,
+                    });
+                context.SaveChanges();
+            }
+        }
+
         public static void SupprimeObjetMonde(ObjetMonde om)
         {
             using (HugoLANDContext context = new HugoLANDContext())

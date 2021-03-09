@@ -59,6 +59,24 @@ namespace Hugo_LAND.Core.Models
             }
         }
 
+        public static void AjouterPlusieursItems(Monde monde, List<Item> liste)
+        {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                foreach (var item in liste)
+                    context.Mondes.Find(monde.Id).Items.Add(new Item()
+                    {
+                        Nom = item.Nom,
+                        Description = item.Description,
+                        x = item.x,
+                        y = item.y,
+                        ImageId = item.ImageId,
+                        Hero = item.Hero,
+                    });
+                context.SaveChanges();
+            }
+        }
+
         public static void ModifierQuantiteItem(int idItem, int idHero, int quantite) //On s'excuse 
         {
             if (quantite < 0)

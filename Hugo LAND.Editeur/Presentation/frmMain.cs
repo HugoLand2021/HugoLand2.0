@@ -599,9 +599,16 @@ namespace HugoLandEditeur
             }
 
             ObjetMondeCRUD.ViderListeObjetsMonde(m_CurrentWorld);
-            ItemCRUD.ViderListeItems(m_CurrentWorld);
-            MonstreCRUD.ViderListeMonstres(m_CurrentWorld);
+            ObjetMondeCRUD.AjouterPlusieursObjetsMonde(m_CurrentWorld, m_LObj);
 
+            ItemCRUD.ViderListeItems(m_CurrentWorld);
+            ItemCRUD.AjouterPlusieursItems(m_CurrentWorld, m_LItem);
+
+            MonstreCRUD.ViderListeMonstres(m_CurrentWorld);
+            MonstreCRUD.AjouterPlusieursMonstres(m_CurrentWorld, m_LMonstre);
+
+
+            //Ajouter un à la fois...
             //foreach (ObjetMonde om in m_CurrentWorld.ObjetMondes)
             //    ObjetMondeCRUD.SupprimeObjetMonde(om);
             //foreach (Item i in m_CurrentWorld.Items)
@@ -609,12 +616,12 @@ namespace HugoLandEditeur
             //foreach (Monstre m in m_CurrentWorld.Monstres)
             //    MonstreCRUD.SupprimerMonstre(m);
 
-            foreach (ObjetMonde om in m_LObj)
-                ObjetMondeCRUD.CreeObjetMonde(om);
-            foreach (Item i in m_LItem)
-                ItemCRUD.CreerItem(i);
-            foreach (Monstre m in m_LMonstre)
-                MonstreCRUD.CreerMonstre(m);
+            //foreach (ObjetMonde om in m_LObj)
+            //    ObjetMondeCRUD.CreeObjetMonde(om);
+            //foreach (Item i in m_LItem)
+            //    ItemCRUD.CreerItem(i);
+            //foreach (Monstre m in m_LMonstre)
+            //    MonstreCRUD.CreerMonstre(m);
             m_CurrentWorld = MondeCRUD.RafraichirMonde(m_CurrentWorld);
             FillLists();
 

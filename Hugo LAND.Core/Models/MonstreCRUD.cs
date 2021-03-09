@@ -45,6 +45,27 @@ namespace Hugo_LAND.Core.Models
                 context.SaveChanges();
             }
         }
+
+        public static void AjouterPlusieursMonstres(Monde monde, List<Monstre> liste)
+        {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                foreach (var monstre in liste)
+                    context.Mondes.Find(monde.Id).Monstres.Add(new Monstre()
+                    {
+                        Nom = monstre.Nom,
+                        Niveau = monstre.Niveau,
+                        x = monstre.x,
+                        y = monstre.y,
+                        StatPV = monstre.StatPV,
+                        StatDmgMin = monstre.StatDmgMin,
+                        StatDmgMax = monstre.StatDmgMax,
+                        ImageId = monstre.ImageId,
+                    });
+                context.SaveChanges();
+            }
+        }
+
         public static void ModifierMonstre(Monstre mons)
         {
             using (HugoLANDContext context = new HugoLANDContext())
