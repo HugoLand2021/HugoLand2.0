@@ -414,11 +414,15 @@ namespace HugoLandEditeur
         private void picMap_Click(object sender, System.EventArgs e)
         {
             //hUGO : mODIFIER ICI POUR AVOIR le tile et le type
+
             modificationMap(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
 
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
             //m_Obj.x = m_ActiveTileXIndex;
             //m_Obj.y = m_ActiveTileYIndex;
             //m_Obj.TypeObjet = m_ActiveTileID;
@@ -806,13 +810,54 @@ namespace HugoLandEditeur
 
         private void modificationMap(int x, int y, int tileID)
         {
-            if (m_Map.getMapTileType(x, y) == tileID)
+            if (m_Map.getMapTileType(y, x) == tileID)
                 return;
 
             Tile tileSelected = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == tileID).First();
-            Tile tileUnder = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == m_Map.getMapTileType(x, y)).First();
+            Tile tileUnder = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == m_Map.getMapTileType(y, x)).First();
+            ObjetMonde objOriginal = m_DObj.Keys.ToList().Where(c => c.x == x && c.y == y).FirstOrDefault();
+            Monstre monstreOriginal = m_DMonstre.Keys.ToList().Where(c => c.x == x && c.y == y).FirstOrDefault();
+            Item itemOriginal = m_DItem.Keys.ToList().Where(c => c.x == x && c.y == y).FirstOrDefault();
+            string testOriginality = "";
 
-            if (tileSelected.TypeObjet == TypeTile.ObjetMonde)
+            if (objOriginal != null)
+            {
+                testOriginality = m_DObj[objOriginal];
+            }
+            else if (monstreOriginal != null)
+            {
+                testOriginality = m_DMonstre[monstreOriginal];
+            }
+            else if (itemOriginal != null)
+            {
+                testOriginality = m_DItem[itemOriginal];
+            }
+
+
+            if (tileSelected.TypeObjet == TypeTile.ObjetMonde && testOriginality == "ORIGINAL")
+            {
+                m_DObj.Keys.Where(c => c.x == x && c.y == y).First().Description = tileSelected.Name;
+                m_DObj.Keys.Where(c => c.x == x && c.y == y).First().TypeObjet = tileSelected.IndexTypeObjet;
+                m_DObj[m_DObj.Keys.Where(c => c.x == x && c.y == y).First()] = "MODIFIED";
+            }
+            else if (tileSelected.TypeObjet == TypeTile.Item && testOriginality == "ORIGINAL")
+            {
+                m_DItem.Keys.Where(c => c.x == x && c.y == y).First().Description = tileSelected.Name;
+                m_DItem.Keys.Where(c => c.x == x && c.y == y).First().ImageId = tileSelected.IndexTypeObjet;
+                m_DItem.Keys.Where(c => c.x == x && c.y == y).First().Nom = tileSelected.Name;
+                m_DItem[m_DItem.Keys.Where(c => c.x == x && c.y == y).First()] = "MODIFIED";
+            }
+            else if (tileSelected.TypeObjet == TypeTile.Monstre && testOriginality == "ORIGINAL")
+            {
+                m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First().Nom = tileSelected.Name;
+                m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First().ImageId = tileSelected.IndexTypeObjet;
+                m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First().StatPV = tileSelected.Health;
+                m_DMonstre[m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First()] = "MODIFIED";
+            }
+
+
+
+            if (tileSelected.TypeObjet == TypeTile.ObjetMonde && testOriginality == "")
             {
                 m_DObj.Add(new ObjetMonde()
                 {
@@ -852,6 +897,7 @@ namespace HugoLandEditeur
                 "NEW");
                 if (tileUnder.IndexTypeObjet != 32)
                 {
+
                     m_DItem.Add(new Item()
                     {
                         Nom = tileUnder.Name,
@@ -908,21 +954,21 @@ namespace HugoLandEditeur
             {
                 m_DObj.Add(
                     om,
-                    "ALREADYBD"
+                    "ORIGINAL"
                 );
             }
             foreach (Item i in m_CurrentWorld.Items)
             {
                 m_DItem.Add(
                     i,
-                    "ALREADYBD"
+                    "ORIGINAL"
                 );
             }
             foreach (Monstre m in m_CurrentWorld.Monstres)
             {
                 m_DMonstre.Add(
                     m,
-                    "ALREADYBD"
+                    "ORIGINAL"
                 );
             }
         }
