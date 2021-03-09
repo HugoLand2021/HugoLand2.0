@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Entity.Core.Objects;
 
 namespace HugoLandEditeur
 {
@@ -22,6 +23,9 @@ namespace HugoLandEditeur
         private Dictionary<ObjetMonde, string> m_DObj;
         private Dictionary<Monstre, string> m_DMonstre;
         private Dictionary<Item, string> m_DItem;
+        private List<Item> m_li;
+        private List<ObjetMonde> m_OBJ;
+        private List<Monstre> m_Mons;
         private int m_XSel;
         private int m_YSel;
         private int m_TilesHoriz;
@@ -90,6 +94,9 @@ namespace HugoLandEditeur
             m_DObj = new Dictionary<ObjetMonde, string>();
             m_DMonstre = new Dictionary<Monstre, string>();
             m_DItem = new Dictionary<Item, string>();
+            m_OBJ = new List<ObjetMonde>();
+            m_li = new List<Item>();
+            m_Mons = new List<Monstre>();
             picMap.Parent = picEditArea;
             picMap.Left = 0;
             picMap.Top = 0;
@@ -206,7 +213,10 @@ namespace HugoLandEditeur
 
         private void mnuFileSave_Click(object sender, System.EventArgs e)
         {
-            m_SaveMap();
+            if (m_CurrentWorld != null)
+            {
+                m_SaveMap();
+            }
         }
 
         private void tbMain_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)
@@ -418,12 +428,7 @@ namespace HugoLandEditeur
             modificationMap(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
 
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
-            //m_Obj.x = m_ActiveTileXIndex;
+             //m_Obj.x = m_ActiveTileXIndex;
             //m_Obj.y = m_ActiveTileYIndex;
             //m_Obj.TypeObjet = m_ActiveTileID;
             //m_Obj.Monde = m_CurrentWorld;
@@ -616,22 +621,43 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void m_SaveMap()
         {
+            HugoLANDContext context = new HugoLANDContext();
+            List<Monde> lm = MondeCRUD.ListeMonde();
+            if (lm.Where(c => c.Id == m_CurrentWorld.Id).First().Id != m_CurrentWorld.Id)
+            {
+                MondeCRUD.CreerMonde(m_CurrentWorld);
+            }
+
+
+
+            int idNewWorld = m_CurrentWorld.Id;
+
             //Sauvegarde des 
             foreach (var om in m_DObj)
+            {
+                
+
                 switch (om.Value)
                 {
                     case "ORIGINAL":
                         continue; //Fait rien
                     case "NEW":
-                        ObjetMondeCRUD.CreeObjetMonde(om.Key);
+                        ObjetMondeCRUD.CreeObjetMonde(om.Key, idNewWorld);
                         break;
-                    case "MODIFY":
-                    ObjetMondeCRUD.ChangeDescriptionObjetMonde(om.Key);
-                        break;
-                    case "DELETE":
-                    ObjetMondeCRUD.SupprimeObjetMonde(om.Key);
+                    case "MODIFIED":
+                        ObjetMondeCRUD.ChangeDescriptionObjetMonde(om.Key, idNewWorld);
                         break;
                 }
+                
+            }
+            foreach (var item in m_OBJ)
+            {
+                ObjetMondeCRUD.SupprimeObjetMonde(item, idNewWorld);
+            }
+
+            m_DObj.Clear();
+            m_OBJ.Clear();
+            
 
             foreach (var monstre in m_DMonstre)
                 switch (monstre.Value)
@@ -639,15 +665,19 @@ namespace HugoLandEditeur
                     case "ORIGINAL":
                         continue; //Fait rien
                     case "NEW":
-                        MonstreCRUD.CreerMonstre(monstre.Key);
+                        MonstreCRUD.CreerMonstre(monstre.Key, idNewWorld);
                         break;
-                    case "MODIFY":
-                        MonstreCRUD.ModifierMonstre(monstre.Key);
-                        break;
-                    case "DELETE":
-                        MonstreCRUD.SupprimerMonstre(monstre.Key);
+                    case "MODIFIED":
+                        MonstreCRUD.ModifierMonstre(monstre.Key, idNewWorld);
                         break;
                 }
+            foreach (var item in m_Mons)
+            {
+                MonstreCRUD.SupprimerMonstre(item);
+            }
+
+            m_Mons.Clear();
+            m_DMonstre.Clear();
 
             foreach (var i in m_DItem)
                 switch (i.Value)
@@ -657,14 +687,19 @@ namespace HugoLandEditeur
                     case "NEW":
                         ItemCRUD.CreerItem(i.Key);
                         break;
-                    case "MODIFY":
+                    case "MODIFIED":
                        // ItemCRUD.(i.Key); // Revoir
                         break;
-                    case "DELETE":
-                        ItemCRUD.SupprimerItem(i.Key);
-                        break;
                 }
+            foreach (var item in m_li)
+            {
+                ItemCRUD.SupprimerItem(item);
+            }
 
+            m_li.Clear();
+            m_DItem.Clear();
+
+            FillLists();
             //m_Map.Save(m_CurrentWorld, m_WorldOpen);
             //DialogResult result;
 
@@ -813,6 +848,7 @@ namespace HugoLandEditeur
             if (m_Map.getMapTileType(y, x) == tileID)
                 return;
 
+
             Tile tileSelected = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == tileID).First();
             Tile tileUnder = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == m_Map.getMapTileType(y, x)).First();
             ObjetMonde objOriginal = m_DObj.Keys.ToList().Where(c => c.x == x && c.y == y).FirstOrDefault();
@@ -833,119 +869,209 @@ namespace HugoLandEditeur
                 testOriginality = m_DItem[itemOriginal];
             }
 
+            if (tileSelected.IndexTypeObjet == 32)
+            {
+                if (testOriginality == "MODIFIED" || testOriginality == "ORIGINAL")
+                {
+                    if (tileUnder.TypeObjet == TypeTile.ObjetMonde)
+                    {
+                        m_OBJ.Add(m_DObj.Keys.Where(c => c.x == x && c.y == y).First());
+                        m_DObj.Remove(m_DObj.Keys.Where(c => c.x == x && c.y == y).First());
+                        return;
+                    }
+                    else if (tileUnder.TypeObjet == TypeTile.Item)
+                    {
+                        m_li.Add(m_DItem.Keys.Where(c => c.x == x && c.y == y).First());
+                        m_DItem.Remove(m_DItem.Keys.Where(c => c.x == x && c.y == y).First());
+                        return;
+                    }
+                    else
+                    {
+                        m_Mons.Add(m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First());
+                        m_DMonstre.Remove(m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First());
+                        return;
+                    }
+                }
 
-            if (tileSelected.TypeObjet == TypeTile.ObjetMonde && testOriginality == "ORIGINAL")
+                if (tileUnder.TypeObjet == TypeTile.ObjetMonde)
+                {
+                    m_DObj.Remove(objOriginal);
+                    return;
+                }
+                else if (tileUnder.TypeObjet == TypeTile.Monstre)
+                {
+                    m_DMonstre.Remove(monstreOriginal);
+                    return;
+                }
+                else
+                {
+                    m_DItem.Remove(itemOriginal);
+                    return;
+                }
+            }
+
+
+            if (tileSelected.TypeObjet == TypeTile.ObjetMonde && testOriginality == "ORIGINAL" || testOriginality == "MODIFIED")
             {
                 m_DObj.Keys.Where(c => c.x == x && c.y == y).First().Description = tileSelected.Name;
                 m_DObj.Keys.Where(c => c.x == x && c.y == y).First().TypeObjet = tileSelected.IndexTypeObjet;
                 m_DObj[m_DObj.Keys.Where(c => c.x == x && c.y == y).First()] = "MODIFIED";
+                return;
             }
-            else if (tileSelected.TypeObjet == TypeTile.Item && testOriginality == "ORIGINAL")
+            else if (tileSelected.TypeObjet == TypeTile.Item && testOriginality == "ORIGINAL" || testOriginality == "MODIFIED")
             {
                 m_DItem.Keys.Where(c => c.x == x && c.y == y).First().Description = tileSelected.Name;
                 m_DItem.Keys.Where(c => c.x == x && c.y == y).First().ImageId = tileSelected.IndexTypeObjet;
                 m_DItem.Keys.Where(c => c.x == x && c.y == y).First().Nom = tileSelected.Name;
                 m_DItem[m_DItem.Keys.Where(c => c.x == x && c.y == y).First()] = "MODIFIED";
+                return;
             }
-            else if (tileSelected.TypeObjet == TypeTile.Monstre && testOriginality == "ORIGINAL")
+            else if (tileSelected.TypeObjet == TypeTile.Monstre && testOriginality == "ORIGINAL" || testOriginality == "MODIFIED")
             {
                 m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First().Nom = tileSelected.Name;
                 m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First().ImageId = tileSelected.IndexTypeObjet;
                 m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First().StatPV = tileSelected.Health;
                 m_DMonstre[m_DMonstre.Keys.Where(c => c.x == x && c.y == y).First()] = "MODIFIED";
+                return;
             }
 
-
-
-            if (tileSelected.TypeObjet == TypeTile.ObjetMonde && testOriginality == "")
+            if (tileSelected.TypeObjet == TypeTile.ObjetMonde && (testOriginality != "ORIGINAL") && (testOriginality != "MODIFIED"))
             {
-                m_DObj.Add(new ObjetMonde()
+                if (tileUnder.IndexTypeObjet != 32 && testOriginality == "NEW")
                 {
-                    TypeObjet = tileSelected.IndexTypeObjet,
-                    x = x,
-                    y = y,
-                    Monde = m_CurrentWorld,
-                    Description = tileSelected.Name
-                },
-                "NEW");
-
-                if (tileUnder.IndexTypeObjet != 32)
+                    if (tileUnder.TypeObjet == TypeTile.Monstre)
+                    {
+                        m_DMonstre.Remove(monstreOriginal);
+                    }
+                    else if (tileUnder.TypeObjet == TypeTile.Item)
+                    {
+                        m_DItem.Remove(itemOriginal);
+                    }
+                    else
+                    {
+                        m_DObj.Remove(objOriginal);
+                    }
+                    m_DObj.Add(new ObjetMonde()
+                    {
+                        TypeObjet = tileSelected.IndexTypeObjet,
+                        x = x,
+                        y = y,
+                        Monde = m_CurrentWorld,
+                        Description = tileSelected.Name
+                    },
+                    "NEW");
+                }
+                else
                 {
                     m_DObj.Add(new ObjetMonde()
                     {
-                        TypeObjet = tileUnder.IndexTypeObjet,
+                        TypeObjet = tileSelected.IndexTypeObjet,
                         x = x,
                         y = y,
                         Monde = m_CurrentWorld,
-                        Description = tileUnder.Name
+                        Description = tileSelected.Name
                     },
-                "DELETE");
+                    "NEW");
                 }
-
+                return;
             }
-            if (tileSelected.TypeObjet == TypeTile.Item)
-            {
-                m_DItem.Add(new Item()
-                {
-                    Nom = tileSelected.Name,
-                    Description = tileSelected.Name,
-                    ImageId = tileSelected.IndexTypeObjet,
-                    Monde = m_CurrentWorld,
-                    x = x,
-                    y = y
-                },
-                "NEW");
-                if (tileUnder.IndexTypeObjet != 32)
-                {
 
-                    m_DItem.Add(new Item()
+            if (tileSelected.TypeObjet == TypeTile.Monstre && (testOriginality != "ORIGINAL") && (testOriginality != "MODIFIED"))
+            {
+                if (tileUnder.IndexTypeObjet != 32 && testOriginality == "NEW")
+                {
+                    if (tileUnder.TypeObjet == TypeTile.ObjetMonde)
                     {
-                        Nom = tileUnder.Name,
-                        Description = tileUnder.Name,
-                        ImageId = tileUnder.IndexTypeObjet,
-                        Monde = m_CurrentWorld,
-                        x = x,
-                        y = y
-                    },
-                "DELETE");
-                }
-            }
-            if (tileSelected.TypeObjet == TypeTile.Monstre)
-            {
-                m_DMonstre.Add(new Monstre()
-                {
-                    Nom = tileSelected.Name,
-                    StatPV = tileSelected.Health,
-                    Monde = m_CurrentWorld,
-                    x = x,
-                    y = y,
-                    ImageId = tileSelected.IndexTypeObjet,
-                    //À revoir juste en dessous !!!
-                    StatDmgMax = 0,
-                    StatDmgMin = 0,
-                    Niveau = 0
-                },
-                "NEW");
-                if (tileUnder.IndexTypeObjet != 32)
-                {
+                        m_DObj.Remove(objOriginal);
+                    }
+                    else if (tileUnder.TypeObjet == TypeTile.Item)
+                    {
+                        m_DItem.Remove(itemOriginal);
+                    }
+                    else
+                    {
+                        m_DMonstre.Remove(monstreOriginal);
+                    }
                     m_DMonstre.Add(new Monstre()
                     {
-                        Nom = tileUnder.Name,
-                        StatPV = tileUnder.Health,
+                        Nom = tileSelected.Name,
+                        StatPV = tileSelected.Health,
                         Monde = m_CurrentWorld,
                         x = x,
                         y = y,
-                        ImageId = tileUnder.IndexTypeObjet,
+                        ImageId = tileSelected.IndexTypeObjet,
                         //À revoir juste en dessous !!!
                         StatDmgMax = 0,
                         StatDmgMin = 0,
                         Niveau = 0
                     },
-                    "DELETE");
+                    "NEW");
                 }
+                else
+                {
+                    m_DMonstre.Add(new Monstre()
+                    {
+                        Nom = tileSelected.Name,
+                        StatPV = tileSelected.Health,
+                        Monde = m_CurrentWorld,
+                        x = x,
+                        y = y,
+                        ImageId = tileSelected.IndexTypeObjet,
+                        //À revoir juste en dessous !!!
+                        StatDmgMax = 0,
+                        StatDmgMin = 0,
+                        Niveau = 0
+                    },
+                    "NEW");
+                }
+                return;
             }
 
+            if (tileSelected.TypeObjet == TypeTile.Item && (testOriginality != "ORIGINAL") && (testOriginality != "MODIFIED"))
+            {
+                if (tileUnder.IndexTypeObjet != 32 && testOriginality == "NEW")
+                {
+                    if (tileUnder.TypeObjet == TypeTile.Monstre)
+                    {
+                        m_DMonstre.Remove(monstreOriginal);
+                    }
+                    else if (tileUnder.TypeObjet == TypeTile.ObjetMonde)
+                    {
+                        m_DObj.Remove(objOriginal);
+                    }
+                    else
+                    {
+                        m_DItem.Remove(itemOriginal);
+                    }
+
+                    m_DItem.Add(new Item()
+                    {
+                        ImageId = tileSelected.IndexTypeObjet,
+                        x = x,
+                        y = y,
+                        Monde = m_CurrentWorld,
+                        Description = tileSelected.Name,
+                        Nom = tileSelected.Name
+                    },
+                    "NEW");
+                }
+                else
+                {
+                    m_DItem.Add(new Item()
+                    {
+                        ImageId = tileSelected.IndexTypeObjet,
+                        x = x,
+                        y = y,
+                        Monde = m_CurrentWorld,
+                        Description = tileSelected.Name,
+                        Nom = tileSelected.Name
+                    },
+                    "NEW");
+                }
+                return;
+            }
         }
+            
 
         private void FillLists()
         {
@@ -971,6 +1097,18 @@ namespace HugoLandEditeur
                     "ORIGINAL"
                 );
             }
+        }
+
+        private void mnuFileClose_Click(object sender, EventArgs e)
+        {
+            picMap.Visible = false;
+            m_CurrentWorld = null;
+            m_DObj.Clear();
+            m_DMonstre.Clear();
+            m_DItem.Clear();
+            m_OBJ.Clear();
+            m_li.Clear();
+            m_Mons.Clear();
         }
     }
 }

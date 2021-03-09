@@ -9,36 +9,38 @@ namespace Hugo_LAND.Core.Models
 {
     public static class ObjetMondeCRUD
     {
-        public static void CreeObjetMonde(ObjetMonde om)
+        public static void CreeObjetMonde(ObjetMonde om, int monde)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
+                Monde m = context.Mondes.Find(monde);
                 context.ObjetMondes.Add(new ObjetMonde
                 {
                     x = om.x,
                     y = om.y,
                     Description = om.Description,
                     TypeObjet = om.TypeObjet,
-                    Monde = om.Monde
+                    Monde = m
                 });
                 context.SaveChanges();
             }
         }
 
-        public static void SupprimeObjetMonde(ObjetMonde om)
+        public static void SupprimeObjetMonde(ObjetMonde om, int monde)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.ObjetMondes.Remove(context.ObjetMondes.Find(om));
+                context.ObjetMondes.Remove(context.ObjetMondes.Where(c => c.x == om.x && c.y == om.y && c.Monde.Id == monde)
+                                                            .FirstOrDefault());
                 context.SaveChanges();
             }
 
         }
-        public static void ChangeDescriptionObjetMonde(ObjetMonde om)
+        public static void ChangeDescriptionObjetMonde(ObjetMonde om, int monde)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                ObjetMonde objetMonde = context.ObjetMondes.Where(o => (o.x == om.x && o.y == om.y) && o.Monde == om.Monde )
+                ObjetMonde objetMonde = context.ObjetMondes.Where(c => c.x == om.x && c.y == om.y && c.Monde.Id == monde)
                                                             .FirstOrDefault();
                 objetMonde.Description = om.Description;
                 objetMonde.TypeObjet = om.TypeObjet;
