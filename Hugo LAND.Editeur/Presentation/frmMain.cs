@@ -23,9 +23,6 @@ namespace HugoLandEditeur
         private List<Monstre> m_LMonstre;
         private List<Item> m_LItem;
         private bool m_isNew;
-        //private Dictionary<ObjetMonde, string> m_DObj;
-        //private Dictionary<Monstre, string> m_DMonstre;
-        //private Dictionary<Item, string> m_DItem;
         private int m_XSel;
         private int m_YSel;
         private int m_TilesHoriz;
@@ -622,6 +619,7 @@ namespace HugoLandEditeur
             //    ItemCRUD.CreerItem(i);
             //foreach (Monstre m in m_LMonstre)
             //    MonstreCRUD.CreerMonstre(m);
+
             m_CurrentWorld = MondeCRUD.RafraichirMonde(m_CurrentWorld);
             FillLists();
 
@@ -634,10 +632,6 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void NewMap()
         {
-            //Vider les variables pour ne pas avoir de bug
-            m_CurrentWorld = null;
-
-
             frmNew f;
             DialogResult result;
             bool bResult;
@@ -666,6 +660,7 @@ namespace HugoLandEditeur
                         m_bResize = true;
                         picMap.Visible = true;
                         m_isNew = true;
+                        m_WorldOpen = true;
                     }
                 }
                 catch
@@ -849,97 +844,6 @@ namespace HugoLandEditeur
                     }
                     break;
             }
-
-
-
-
-            //if (tileSelected.TypeObjet == TypeTile.ObjetMonde)
-            //{
-            //    m_DObj.Add(new ObjetMonde()
-            //    {
-            //        TypeObjet = tileSelected.IndexTypeObjet,
-            //        x = x,
-            //        y = y,
-            //        Monde = m_CurrentWorld,
-            //        Description = tileSelected.Name
-            //    },
-            //    "NEW");
-
-            //    if (tileUnder.IndexTypeObjet != 32)
-            //    {
-            //        m_DObj.Add(new ObjetMonde()
-            //        {
-            //            TypeObjet = tileUnder.IndexTypeObjet,
-            //            x = x,
-            //            y = y,
-            //            Monde = m_CurrentWorld,
-            //            Description = tileUnder.Name
-            //        },
-            //    "DELETE");
-            //    }
-
-            //}
-            //if (tileSelected.TypeObjet == TypeTile.Item)
-            //{
-            //    m_DItem.Add(new Item()
-            //    {
-            //        Nom = tileSelected.Name,
-            //        Description = tileSelected.Name,
-            //        ImageId = tileSelected.IndexTypeObjet,
-            //        Monde = m_CurrentWorld,
-            //        x = x,
-            //        y = y
-            //    },
-            //    "NEW");
-            //    if (tileUnder.IndexTypeObjet != 32)
-            //    {
-            //        m_DItem.Add(new Item()
-            //        {
-            //            Nom = tileUnder.Name,
-            //            Description = tileUnder.Name,
-            //            ImageId = tileUnder.IndexTypeObjet,
-            //            Monde = m_CurrentWorld,
-            //            x = x,
-            //            y = y
-            //        },
-            //    "DELETE");
-            //    }
-            //}
-            //if (tileSelected.TypeObjet == TypeTile.Monstre)
-            //{
-            //    m_DMonstre.Add(new Monstre()
-            //    {
-            //        Nom = tileSelected.Name,
-            //        StatPV = tileSelected.Health,
-            //        Monde = m_CurrentWorld,
-            //        x = x,
-            //        y = y,
-            //        ImageId = tileSelected.IndexTypeObjet,
-            //        //À revoir juste en dessous !!!
-            //        StatDmgMax = 0,
-            //        StatDmgMin = 0,
-            //        Niveau = 0
-            //    },
-            //    "NEW");
-            //    if (tileUnder.IndexTypeObjet != 32)
-            //    {
-            //        m_DMonstre.Add(new Monstre()
-            //        {
-            //            Nom = tileUnder.Name,
-            //            StatPV = tileUnder.Health,
-            //            Monde = m_CurrentWorld,
-            //            x = x,
-            //            y = y,
-            //            ImageId = tileUnder.IndexTypeObjet,
-            //            //À revoir juste en dessous !!!
-            //            StatDmgMax = 0,
-            //            StatDmgMin = 0,
-            //            Niveau = 0
-            //        },
-            //        "DELETE");
-            //    }
-            //}
-
         }
 
         private void FillLists()
@@ -956,6 +860,15 @@ namespace HugoLandEditeur
                 m_LItem.Add(i);
             foreach (Monstre m in m_CurrentWorld.Monstres) //Adapter plus tard
                 m_LMonstre.Add(m);
+        }
+
+        private void mnuFileClose_Click(object sender, EventArgs e)
+        {
+            picMap.Visible = false;
+            m_CurrentWorld = null;
+            m_LItem.Clear();
+            m_LMonstre.Clear();
+            m_LObj.Clear();
         }
     }
 }

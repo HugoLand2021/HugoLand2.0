@@ -178,6 +178,7 @@ namespace HugoLandEditeur
             // 
             this.mnuFileClose.Index = 2;
             this.mnuFileClose.Text = "&Close";
+            this.mnuFileClose.Click += new System.EventHandler(this.mnuFileClose_Click);
             // 
             // menuItem4
             // 
