@@ -9,10 +9,11 @@ namespace Hugo_LAND.Core.Models
 {
     public static class ItemCRUD
     {
-        public static void CreerItem(Item item)
+        public static void CreerItem(Item item, int monde)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
+                Monde m = context.Mondes.Find(monde);
                 context.Items.Add(new Item()
                 {
                     Nom = item.Nom,
@@ -21,8 +22,8 @@ namespace Hugo_LAND.Core.Models
                     y = item.y,
                     ImageId = item.ImageId,
                     Hero = item.Hero,
-                    Monde = item.Monde
-                });
+                    Monde = m
+                }) ;
                 context.SaveChanges();
             }
         }
@@ -50,7 +51,7 @@ namespace Hugo_LAND.Core.Models
             }
         }
 
-        public static void ModifierQuantiteItem(int idItem, int idHero, int quantite) //On s'excuse 
+        public static void ModifierQuantiteItem(int idItem, int idHero, int quantite, int monde) //On s'excuse 
         {
             if (quantite < 0)
                 throw new Exception("ErreurQuantitéNégative");
@@ -59,6 +60,7 @@ namespace Hugo_LAND.Core.Models
             {
                 Hero hero = context.Heros.Find(idHero);
                 Item item = context.Items.Find(idItem);
+                Monde m = context.Mondes.Find(monde);
                 int nombreItems = hero.Items.Where(it => it.Nom == item.Nom && it.Hero.Id == idHero && it.Monde.Id == item.Monde.Id).Count();
                 int nombreDiff = Math.Abs(quantite - nombreItems);
                 if (nombreDiff > 0)
@@ -74,8 +76,8 @@ namespace Hugo_LAND.Core.Models
                                 x = item.x,
                                 y = item.y,
                                 ImageId = item.ImageId,
-                                Monde = item.Monde
-                            });
+                                Monde = m
+                            },3);
                             RamasserItem(context.Items.ToList().LastOrDefault(it => it.Nom == item.Nom).Id, idHero);
                         }
                     }

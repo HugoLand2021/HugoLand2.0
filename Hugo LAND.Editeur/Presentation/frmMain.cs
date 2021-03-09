@@ -556,6 +556,12 @@ namespace HugoLandEditeur
             frmOpen o;
             DialogResult result;
             bool bResult;
+            m_DObj.Clear();
+            m_DMonstre.Clear();
+            m_DItem.Clear();
+            m_OBJ.Clear();
+            m_li.Clear();
+            m_Mons.Clear();
 
             o = new frmOpen();
 
@@ -623,17 +629,22 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void m_SaveMap()
         {
+            int idNewWorld = 0;
             HugoLANDContext context = new HugoLANDContext();
-            List<Monde> lm = MondeCRUD.ListeMonde();
+            
             if (m_worldNew)
             {
                 MondeCRUD.CreerMonde(m_CurrentWorld);
+                List<Monde> lm = MondeCRUD.ListeMonde();
+                idNewWorld = lm.Last().Id;
                 m_worldNew = false;
+            }
+            else
+            {
+                 idNewWorld = m_CurrentWorld.Id;
             }
 
 
-
-            int idNewWorld = m_CurrentWorld.Id;
 
             //Sauvegarde des 
             foreach (var om in m_DObj)
@@ -688,7 +699,7 @@ namespace HugoLandEditeur
                     case "ORIGINAL":
                         continue; //Fait rien
                     case "NEW":
-                        ItemCRUD.CreerItem(i.Key);
+                        ItemCRUD.CreerItem(i.Key, idNewWorld);
                         break;
                     case "MODIFIED":
                        // ItemCRUD.(i.Key); // Revoir
@@ -735,8 +746,15 @@ namespace HugoLandEditeur
             frmNew f;
             DialogResult result;
             bool bResult;
-
             f = new frmNew();
+            m_DObj.Clear();
+            m_DMonstre.Clear();
+            m_DItem.Clear();
+            m_OBJ.Clear();
+            m_li.Clear();
+            m_Mons.Clear();
+            m_CurrentWorld = null;
+            m_CurrentWorld = new Monde();
             f.MapWidth = m_Map.Width;
             f.MapHeight = m_Map.Height;
             f.MapDescription = m_Map.Description;
@@ -1079,6 +1097,12 @@ namespace HugoLandEditeur
 
         private void FillLists()
         {
+            m_DObj.Clear();
+            m_DMonstre.Clear();
+            m_DItem.Clear();
+            m_OBJ.Clear();
+            m_li.Clear();
+            m_Mons.Clear();
             // Remplir les listes des objects déjà existant.
             foreach (ObjetMonde om in m_CurrentWorld.ObjetMondes)
             {
