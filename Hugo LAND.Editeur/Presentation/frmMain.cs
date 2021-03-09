@@ -866,6 +866,7 @@ namespace HugoLandEditeur
         {
             picMap.Visible = false;
             m_CurrentWorld = null;
+            m_CurrentWorld = new Monde();
             m_LItem.Clear();
             m_LMonstre.Clear();
             m_LObj.Clear();
