@@ -583,31 +583,6 @@ namespace HugoLandEditeur
             this.Cursor = Cursors.Default;
 
 
-            //DialogResult result;
-
-            //dlgLoadMap.Title = "Load Map";
-            //dlgLoadMap.Filter = "Map Files (*.map)|*.map|All Files (*.*)|*.*";
-
-            //result = dlgLoadMap.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    m_bOpen = false;
-            //    picMap.Visible = false;
-            //    this.Cursor = Cursors.WaitCursor;
-            //    try
-            //    {
-            //        m_Map.Load(dlgLoadMap.FileName);
-            //        m_bOpen = true;
-            //        m_bRefresh = true;
-            //        picMap.Visible = true;
-            //    }
-            //    catch
-            //    {
-            //        Console.WriteLine("Error Loading...");
-            //    }
-            //    m_MenuLogic();
-            //    this.Cursor = Cursors.Default;
-            //}
         }
 
         /* -------------------------------------------------------------- *\
@@ -618,94 +593,31 @@ namespace HugoLandEditeur
         private void m_SaveMap()
         {
             if (m_isNew)
-            { 
+            {
                 MondeCRUD.CreerMonde(m_CurrentWorld);
                 m_isNew = false;
             }
 
-            foreach (ObjetMonde om in m_CurrentWorld.ObjetMondes)
-                ObjetMondeCRUD.SupprimeObjetMonde(om);
-            foreach (Item i in m_CurrentWorld.Items)
-                ItemCRUD.SupprimerItem(i);
-            foreach (Monstre m in m_CurrentWorld.Monstres)
-                MonstreCRUD.SupprimerMonstre(m);
+            ObjetMondeCRUD.ViderListeObjetsMonde(m_CurrentWorld);
+            ItemCRUD.ViderListeItems(m_CurrentWorld);
+            MonstreCRUD.ViderListeMonstres(m_CurrentWorld);
+
+            //foreach (ObjetMonde om in m_CurrentWorld.ObjetMondes)
+            //    ObjetMondeCRUD.SupprimeObjetMonde(om);
+            //foreach (Item i in m_CurrentWorld.Items)
+            //    ItemCRUD.SupprimerItem(i);
+            //foreach (Monstre m in m_CurrentWorld.Monstres)
+            //    MonstreCRUD.SupprimerMonstre(m);
+
             foreach (ObjetMonde om in m_LObj)
                 ObjetMondeCRUD.CreeObjetMonde(om);
             foreach (Item i in m_LItem)
                 ItemCRUD.CreerItem(i);
             foreach (Monstre m in m_LMonstre)
                 MonstreCRUD.CreerMonstre(m);
-            m_CurrentWorld =  MondeCRUD.RafraichirMonde(m_CurrentWorld);
+            m_CurrentWorld = MondeCRUD.RafraichirMonde(m_CurrentWorld);
             FillLists();
-            ////Sauvegarde des 
-            //foreach (var om in m_LObj)
-            //    switch (om.Value)
-            //    {
-            //        case "ORIGINAL":
-            //            continue; //Fait rien
-            //        case "NEW":
-            //            ObjetMondeCRUD.CreeObjetMonde(om.Key);
-            //            break;
-            //        case "MODIFY":
-            //        ObjetMondeCRUD.ChangeDescriptionObjetMonde(om.Key);
-            //            break;
-            //        case "DELETE":
-            //        ObjetMondeCRUD.SupprimeObjetMonde(om.Key);
-            //            break;
-            //    }
 
-            //foreach (var monstre in m_LMonstre)
-            //    switch (monstre.Value)
-            //    {
-            //        case "ORIGINAL":
-            //            continue; //Fait rien
-            //        case "NEW":
-            //            MonstreCRUD.CreerMonstre(monstre.Key);
-            //            break;
-            //        case "MODIFY":
-            //            MonstreCRUD.ModifierMonstre(monstre.Key);
-            //            break;
-            //        case "DELETE":
-            //            MonstreCRUD.SupprimerMonstre(monstre.Key);
-            //            break;
-            //    }
-
-            //foreach (var i in m_LItem)
-            //    switch (i.Value)
-            //    {
-            //        case "ORIGINAL":
-            //            continue; //Fait rien
-            //        case "NEW":
-            //            ItemCRUD.CreerItem(i.Key);
-            //            break;
-            //        case "MODIFY":
-            //           // ItemCRUD.(i.Key); // Revoir
-            //            break;
-            //        case "DELETE":
-            //            ItemCRUD.SupprimerItem(i.Key);
-            //            break;
-            //   }
-
-            //m_Map.Save(m_CurrentWorld, m_WorldOpen);
-            //DialogResult result;
-
-            //dlgSaveMap.Title = "Save Map";
-            //dlgSaveMap.Filter = "Map File (*.map)|*.map";
-
-            //result = dlgSaveMap.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    this.Cursor = Cursors.WaitCursor;
-            //    try
-            //    {
-            //        m_Map.Save(dlgSaveMap.FileName);
-            //    }
-            //    catch
-            //    {
-            //        Console.WriteLine("Error Saving...");
-            //    }
-            //    this.Cursor = Cursors.Default;
-            //}
         }
 
         /* -------------------------------------------------------------- *\
@@ -715,6 +627,10 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void NewMap()
         {
+            //Vider les variables pour ne pas avoir de bug
+            m_CurrentWorld = null;
+
+
             frmNew f;
             DialogResult result;
             bool bResult;

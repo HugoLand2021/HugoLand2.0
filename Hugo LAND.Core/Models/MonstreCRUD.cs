@@ -36,6 +36,15 @@ namespace Hugo_LAND.Core.Models
                 context.SaveChanges();
             }
         }
+        public static void ViderListeMonstres(Monde monde)
+        {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                foreach (var m in monde.Monstres)
+                    context.Monstres.Remove(context.Monstres.Find(m.Id));
+                context.SaveChanges();
+            }
+        }
         public static void ModifierMonstre(Monstre mons)
         {
             using (HugoLANDContext context = new HugoLANDContext())

@@ -26,6 +26,16 @@ namespace Hugo_LAND.Core.Models
             }
         }
 
+        public static void ViderListeObjetsMonde(Monde monde)
+        {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                foreach (var om in monde.ObjetMondes)
+                    context.ObjetMondes.Remove(context.ObjetMondes.Find(om.Id));
+                context.SaveChanges();
+            }
+        }
+
         public static void SupprimeObjetMonde(ObjetMonde om)
         {
             using (HugoLANDContext context = new HugoLANDContext())

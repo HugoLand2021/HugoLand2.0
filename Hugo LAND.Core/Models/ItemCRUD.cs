@@ -49,6 +49,16 @@ namespace Hugo_LAND.Core.Models
             }
         }
 
+        public static void ViderListeItems(Monde monde)
+        {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                foreach (var i in monde.Items)
+                    context.Items.Remove(context.Items.Find(i.Id));
+                context.SaveChanges();
+            }
+        }
+
         public static void ModifierQuantiteItem(int idItem, int idHero, int quantite) //On s'excuse 
         {
             if (quantite < 0)
