@@ -609,7 +609,7 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void m_SaveMap()
         {
-            m_Map.Save(m_CurrentWorld, m_WorldOpen);
+            //m_Map.Save(m_CurrentWorld, m_WorldOpen);
             //DialogResult result;
 
             //dlgSaveMap.Title = "Save Map";
@@ -761,20 +761,42 @@ namespace HugoLandEditeur
 
             if (tileSelected.TypeObjet == TypeTile.ObjetMonde)
             {
-                ObjetMonde objToAdd = new ObjetMonde();
-                objToAdd.TypeObjet = tileSelected.IndexTypeObjet;
-                objToAdd.x = x;
-                objToAdd.y = y;
-                objToAdd.Monde = m_CurrentWorld;
-                objToAdd.Description = tileSelected.Name;
-
-                m_LObj.Add(objToAdd);
+                m_LObj.Add(new ObjetMonde()
+                {
+                    TypeObjet = tileSelected.IndexTypeObjet,
+                    x = x,
+                    y = y,
+                    Monde = m_CurrentWorld,
+                    Description = tileSelected.Name
+                });
             }
             if (tileSelected.TypeObjet == TypeTile.Item)
             {
-                Item itemToAdd = new Item();
-                itemToAdd.Nom = tileSelected.Name;
+                m_LItem.Add(new Item() { 
+                    Nom = tileSelected.Name,
+                    Description = tileSelected.Name,
+                    ImageId = tileSelected.IndexTypeObjet,
+                    Monde = m_CurrentWorld,
+                    x = x,
+                    y = y
+                });
             }
+            if (tileSelected.TypeObjet == TypeTile.Monstre)
+            {
+                m_LMonstre.Add(new Monstre() { 
+                    Nom = tileSelected.Name,
+                    StatPV = tileSelected.Health,
+                    Monde = m_CurrentWorld,
+                    x = x,
+                    y = y,
+                    ImageId = tileSelected.IndexTypeObjet,
+                    //À revoir juste en dessous !!!
+                    StatDmgMax = 0,
+                    StatDmgMin = 0,
+                    Niveau = 0
+                });
+            }
+            
         }
     }
 }

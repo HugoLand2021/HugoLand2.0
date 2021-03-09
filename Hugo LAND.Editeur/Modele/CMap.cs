@@ -209,19 +209,8 @@ namespace HugoLandEditeur
 
         }
 
-        public int Save(Monde monde, bool worldOpen)
+        public int Save(List<ObjetMonde> listeObjetsMonde, List<Monstre> listeMonstres, List<Item> listeItems)
         {
-            
-            if (worldOpen)
-            {
-               
-                // Ici Modifier monde Existant
-            }
-            else
-            {
-
-            }
-
             return 0;
         }
 
@@ -298,15 +287,24 @@ namespace HugoLandEditeur
             m_Width = monde.LimiteX;
             m_Tiles = new int[monde.LimiteY, monde.LimiteX];
 
-
+            //Default tile
             for (int i = 0; i < monde.LimiteY; i++)
                 for (int j = 0; j < monde.LimiteX; j++)
                     m_Tiles[i, j] = 32;
 
+            // Load les objets monde
             foreach (ObjetMonde objetMonde in monde.ObjetMondes)
                 m_Tiles[objetMonde.y, objetMonde.x] = objetMonde.TypeObjet;
 
+            //Load les items
+            foreach (Item item in monde.Items)
+                if (item.x != null && item.y != null && item.ImageId != null)
+                    m_Tiles[(int)item.y, (int)item.x] = (int)item.ImageId;
 
+            //Load les monstres
+            foreach (Monstre monstre in monde.Monstres)
+                if(monstre.ImageId != null)
+                m_Tiles[monstre.y, monstre.x] = (int)monstre.ImageId;
 
             m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
             m_BackBufferDC = Graphics.FromImage(m_BackBuffer);

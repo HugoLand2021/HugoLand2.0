@@ -70,8 +70,6 @@ namespace Hugo_LAND.Core.Models
                     return "INCORRECT";
                 }
 
-                //var compte = context.CompteJoueurs.Where(c =>c.NomJoueur == nomJoueur &&
-                //                                         c.TypeUtilisateur == TypeUtilisateur.Admin).ToList();
                 context.Connexion(nomJoueur, mdp, message);
                 return (string)message.Value;
             }
