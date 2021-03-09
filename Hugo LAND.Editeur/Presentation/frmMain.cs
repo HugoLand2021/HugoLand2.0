@@ -19,9 +19,9 @@ namespace HugoLandEditeur
         private CMap m_Map;
         private Monde m_CurrentWorld;
         private CTileLibrary m_TileLibrary;
-        private List<ObjetMonde> m_LObj;
-        private List<Monstre> m_LMonstre;
-        private List<Item> m_LItem;
+        private Dictionary<ObjetMonde, string> m_DObj;
+        private Dictionary<Monstre, string> m_DMonstre;
+        private Dictionary<Item, string> m_DItem;
         private int m_XSel;
         private int m_YSel;
         private int m_TilesHoriz;
@@ -87,9 +87,9 @@ namespace HugoLandEditeur
             m_CurrentWorld = new Monde();
             m_TileLibrary = new CTileLibrary();
             m_Map.TileLibrary = m_TileLibrary;
-            m_LObj = new List<ObjetMonde>();
-            m_LMonstre = new List<Monstre>();
-            m_LItem = new List<Item>();
+            m_DObj = new Dictionary<ObjetMonde, string>();
+            m_DMonstre = new Dictionary<Monstre, string>();
+            m_DItem = new Dictionary<Item, string>();
             picMap.Parent = picEditArea;
             picMap.Left = 0;
             picMap.Top = 0;
@@ -414,9 +414,11 @@ namespace HugoLandEditeur
         private void picMap_Click(object sender, System.EventArgs e)
         {
             //hUGO : mODIFIER ICI POUR AVOIR le tile et le type
+            modificationMap(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
+
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
 
-            modificationMap(m_ActiveTileXIndex, m_ActiveYIndex, m_ActiveTileID);
+            
             //m_Obj.x = m_ActiveTileXIndex;
             //m_Obj.y = m_ActiveTileYIndex;
             //m_Obj.TypeObjet = m_ActiveTileID;
@@ -560,6 +562,7 @@ namespace HugoLandEditeur
                 try
                 {
                     m_Map.Load(m_CurrentWorld);
+                    FillLists();
                     m_bOpen = true;
                     m_bRefresh = true;
                     m_bResize = true;
@@ -758,32 +761,64 @@ namespace HugoLandEditeur
                 return;
 
             Tile tileSelected = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == tileID).First();
+            Tile tileUnder = m_TileLibrary.ObjMonde.Values.Where(c => c.IndexTypeObjet == m_Map.getMapTileType(x, y)).First();
 
             if (tileSelected.TypeObjet == TypeTile.ObjetMonde)
             {
-                m_LObj.Add(new ObjetMonde()
+                m_DObj.Add(new ObjetMonde()
                 {
                     TypeObjet = tileSelected.IndexTypeObjet,
                     x = x,
                     y = y,
                     Monde = m_CurrentWorld,
                     Description = tileSelected.Name
-                });
+                },
+                "NEW");
+
+                if (tileUnder.IndexTypeObjet != 32)
+                {
+                    m_DObj.Add(new ObjetMonde()
+                    {
+                        TypeObjet = tileUnder.IndexTypeObjet,
+                        x = x,
+                        y = y,
+                        Monde = m_CurrentWorld,
+                        Description = tileUnder.Name
+                    },
+                "DELETE");
+                }
+
             }
             if (tileSelected.TypeObjet == TypeTile.Item)
             {
-                m_LItem.Add(new Item() { 
+                m_DItem.Add(new Item()
+                {
                     Nom = tileSelected.Name,
                     Description = tileSelected.Name,
                     ImageId = tileSelected.IndexTypeObjet,
                     Monde = m_CurrentWorld,
                     x = x,
                     y = y
-                });
+                },
+                "NEW");
+                if (tileUnder.IndexTypeObjet != 32)
+                {
+                    m_DItem.Add(new Item()
+                    {
+                        Nom = tileUnder.Name,
+                        Description = tileUnder.Name,
+                        ImageId = tileUnder.IndexTypeObjet,
+                        Monde = m_CurrentWorld,
+                        x = x,
+                        y = y
+                    },
+                "DELETE");
+                }
             }
             if (tileSelected.TypeObjet == TypeTile.Monstre)
             {
-                m_LMonstre.Add(new Monstre() { 
+                m_DMonstre.Add(new Monstre()
+                {
                     Nom = tileSelected.Name,
                     StatPV = tileSelected.Health,
                     Monde = m_CurrentWorld,
@@ -794,9 +829,53 @@ namespace HugoLandEditeur
                     StatDmgMax = 0,
                     StatDmgMin = 0,
                     Niveau = 0
-                });
+                },
+                "NEW");
+                if (tileUnder.IndexTypeObjet != 32)
+                {
+                    m_DMonstre.Add(new Monstre()
+                    {
+                        Nom = tileUnder.Name,
+                        StatPV = tileUnder.Health,
+                        Monde = m_CurrentWorld,
+                        x = x,
+                        y = y,
+                        ImageId = tileUnder.IndexTypeObjet,
+                        //À revoir juste en dessous !!!
+                        StatDmgMax = 0,
+                        StatDmgMin = 0,
+                        Niveau = 0
+                    },
+                    "DELETE");
+                }
             }
-            
+
+        }
+
+        private void FillLists()
+        {
+            // Remplir les listes des objects déjà existant.
+            foreach (ObjetMonde om in m_CurrentWorld.ObjetMondes)
+            {
+                m_DObj.Add(
+                    om,
+                    "ALREADYBD"
+                );
+            }
+            foreach (Item i in m_CurrentWorld.Items)
+            {
+                m_DItem.Add(
+                    i,
+                    "ALREADYBD"
+                );
+            }
+            foreach (Monstre m in m_CurrentWorld.Monstres)
+            {
+                m_DMonstre.Add(
+                    m,
+                    "ALREADYBD"
+                );
+            }
         }
     }
 }
