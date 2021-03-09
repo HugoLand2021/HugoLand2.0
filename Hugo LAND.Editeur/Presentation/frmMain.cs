@@ -37,6 +37,7 @@ namespace HugoLandEditeur
         private Rectangle m_TileRect;
         private Rectangle m_LibRect;
         private int m_ActiveXIndex;
+        private bool m_worldNew;
         private int m_ActiveYIndex;
         private readonly frmLogin loginForm;
         private bool m_WorldOpen = false;
@@ -577,6 +578,7 @@ namespace HugoLandEditeur
                     m_bResize = true;
                     picMap.Visible = true;
                     m_WorldOpen = true;
+                    m_worldNew = false;
                 }
                 catch
                 {
@@ -623,9 +625,10 @@ namespace HugoLandEditeur
         {
             HugoLANDContext context = new HugoLANDContext();
             List<Monde> lm = MondeCRUD.ListeMonde();
-            if (lm.Where(c => c.Id == m_CurrentWorld.Id).First().Id != m_CurrentWorld.Id)
+            if (m_worldNew)
             {
                 MondeCRUD.CreerMonde(m_CurrentWorld);
+                m_worldNew = false;
             }
 
 
@@ -750,6 +753,7 @@ namespace HugoLandEditeur
                     m_CurrentWorld.LimiteX = m_Map.Width;
                     m_CurrentWorld.LimiteY = m_Map.Height;
                     m_CurrentWorld.Description = m_Map.Description;
+                    m_worldNew = true;
                     if (bResult)
                     {
                         m_bOpen = true;
@@ -1103,6 +1107,7 @@ namespace HugoLandEditeur
         {
             picMap.Visible = false;
             m_CurrentWorld = null;
+            m_CurrentWorld = new Monde();
             m_DObj.Clear();
             m_DMonstre.Clear();
             m_DItem.Clear();
