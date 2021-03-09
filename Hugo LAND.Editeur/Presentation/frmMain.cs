@@ -418,7 +418,7 @@ namespace HugoLandEditeur
 
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
 
-            
+
             //m_Obj.x = m_ActiveTileXIndex;
             //m_Obj.y = m_ActiveTileYIndex;
             //m_Obj.TypeObjet = m_ActiveTileID;
@@ -612,6 +612,55 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void m_SaveMap()
         {
+            //Sauvegarde des 
+            foreach (var om in m_DObj)
+                switch (om.Value)
+                {
+                    case "ORIGINAL":
+                        continue; //Fait rien
+                    case "NEW":
+                        ObjetMondeCRUD.CreeObjetMonde(om.Key);
+                        break;
+                    case "MODIFY":
+                    ObjetMondeCRUD.ChangeDescriptionObjetMonde(om.Key);
+                        break;
+                    case "DELETE":
+                    ObjetMondeCRUD.SupprimeObjetMonde(om.Key);
+                        break;
+                }
+
+            foreach (var monstre in m_DMonstre)
+                switch (monstre.Value)
+                {
+                    case "ORIGINAL":
+                        continue; //Fait rien
+                    case "NEW":
+                        MonstreCRUD.CreerMonstre(monstre.Key);
+                        break;
+                    case "MODIFY":
+                        MonstreCRUD.ModifierMonstre(monstre.Key);
+                        break;
+                    case "DELETE":
+                        MonstreCRUD.SupprimerMonstre(monstre.Key);
+                        break;
+                }
+
+            foreach (var i in m_DItem)
+                switch (i.Value)
+                {
+                    case "ORIGINAL":
+                        continue; //Fait rien
+                    case "NEW":
+                        ItemCRUD.CreerItem(i.Key);
+                        break;
+                    case "MODIFY":
+                       // ItemCRUD.(i.Key); // Revoir
+                        break;
+                    case "DELETE":
+                        ItemCRUD.SupprimerItem(i.Key);
+                        break;
+                }
+
             //m_Map.Save(m_CurrentWorld, m_WorldOpen);
             //DialogResult result;
 

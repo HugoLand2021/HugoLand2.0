@@ -9,49 +9,48 @@ namespace Hugo_LAND.Core.Models
 {
     public class MonstreCRUD
     {
-        public static void CreerMonstre(string nom, int niveau, int x, int y, int statPv, float statDmgMin, float statDmgMax, Nullable<int> imageId, int idMonde)
+        public static void CreerMonstre(Monstre monstre)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                Monde monde = context.Mondes.Find(idMonde);
                 context.Monstres.Add(new Monstre()
                 {
-                    Nom = nom,
-                    Niveau = niveau,
-                    x = x,
-                    y = y,
-                    StatPV = statPv,
-                    StatDmgMin = statDmgMin,
-                    StatDmgMax = statDmgMax,
-                    ImageId= imageId,
-                    Monde = monde
+                    Nom = monstre.Nom,
+                    Niveau = monstre.Niveau,
+                    x = monstre.x,
+                    y = monstre.y,
+                    StatPV = monstre.StatPV,
+                    StatDmgMin = monstre.StatDmgMin,
+                    StatDmgMax = monstre.StatDmgMax,
+                    ImageId= monstre.ImageId,
+                    Monde = monstre.Monde
                 });
                 context.SaveChanges();
             }
         }
-        public static void SupprimerMonstre(int ID)
+        public static void SupprimerMonstre(Monstre monstre)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.Monstres.Remove(context.Monstres.Find(ID));
+                context.Monstres.Remove(context.Monstres.Find(monstre));
                 context.SaveChanges();
             }
         }
-        public static void ModifierMonstre(int ID, string nom, int niveau, int x, int y, int statPv,  float statDmgMin, float statDmgMax, Nullable<int> ImageId, int idMonde)
+        public static void ModifierMonstre(Monstre mons)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                Monstre monstre = context.Monstres.Find(ID);
-                Monde monde = context.Mondes.Find(idMonde);
-                monstre.ImageId = ImageId;
-                monstre.Monde = monde;
-                monstre.Niveau = niveau;
-                monstre.Nom = nom;
-                monstre.StatDmgMax = statDmgMax;
-                monstre.StatDmgMin = statDmgMin;
-                monstre.StatPV = statPv;
-                monstre.x = x;
-                monstre.y = y;
+                Monstre monstre = context.Monstres.Where(m => m.x == mons.x && m.y == mons.y &&
+                                                        m.Monde == mons.Monde).FirstOrDefault();
+                monstre.ImageId = mons.ImageId;
+                monstre.Monde = mons.Monde;
+                monstre.Niveau = mons.Niveau;
+                monstre.Nom = mons.Nom;
+                monstre.StatDmgMax = mons.StatDmgMax;
+                monstre.StatDmgMin = mons.StatDmgMin;
+                monstre.StatPV = mons.StatPV;
+                monstre.x = mons.x;
+                monstre.y = mons.y;
                 context.SaveChanges();
             }
         }

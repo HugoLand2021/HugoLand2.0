@@ -9,26 +9,25 @@ namespace Hugo_LAND.Core.Models
 {
     public static class ItemCRUD
     {
-        public static void CreerItem(string nom, string description, Nullable<int> x, Nullable<int> y, Nullable<int> imageId, int mondeId)
+        public static void CreerItem(Item item)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                Monde monde = context.Mondes.Find(mondeId);
                 context.Items.Add(new Item()
                 {
-                    Nom = nom,
-                    Description = description,
-                    x = x,
-                    y = y,
-                    ImageId = imageId,
-                    Hero = null,
-                    Monde = monde
+                    Nom = item.Nom,
+                    Description = item.Description,
+                    x = item.x,
+                    y = item.y,
+                    ImageId = item.ImageId,
+                    Hero = item.Hero,
+                    Monde = item.Monde
                 });
                 context.SaveChanges();
             }
         }
 
-        public static void SupprimerItem(int idItem, int idHero)
+        public static void RamasserItem(int idItem, int idHero)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
@@ -38,6 +37,15 @@ namespace Hugo_LAND.Core.Models
                 item.y = null;
                 item.Hero = hero;
                 hero.Items.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        public static void SupprimerItem(Item item)
+        {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                context.Items.Remove(context.Items.Find(item));
                 context.SaveChanges();
             }
         }
@@ -59,8 +67,16 @@ namespace Hugo_LAND.Core.Models
                     {
                         for (int i = 0; i < nombreDiff; i++)
                         {
-                            CreerItem(item.Nom, item.Description, item.x, item.y, item.ImageId, item.Monde.Id);
-                            SupprimerItem(context.Items.ToList().LastOrDefault(it => it.Nom == item.Nom).Id,idHero);
+                            CreerItem(new Item()
+                            {
+                                Nom = item.Nom,
+                                Description = item.Description,
+                                x = item.x,
+                                y = item.y,
+                                ImageId = item.ImageId,
+                                Monde = item.Monde
+                            });
+                            RamasserItem(context.Items.ToList().LastOrDefault(it => it.Nom == item.Nom).Id, idHero);
                         }
                     }
                     else if (nombreItems > quantite)  // En retirer

@@ -9,38 +9,42 @@ namespace Hugo_LAND.Core.Models
 {
     public static class ObjetMondeCRUD
     {
-        public static void CreeObjetMonde(int newX, int newY, string newDescription, int newTypeObjet, int idMonde)
+        public static void CreeObjetMonde(ObjetMonde om)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                Monde monde = context.Mondes.Find(idMonde);
                 context.ObjetMondes.Add(new ObjetMonde
                 {
-                    x = newX,
-                    y = newY,
-                    Description = newDescription,
-                    TypeObjet = newTypeObjet,
-                    Monde = monde
+                    x = om.x,
+                    y = om.y,
+                    Description = om.Description,
+                    TypeObjet = om.TypeObjet,
+                    Monde = om.Monde
                 });
                 context.SaveChanges();
             }
         }
 
-        public static void SupprimeObjetMonde(int id) 
+        public static void SupprimeObjetMonde(ObjetMonde om)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.ObjetMondes.Remove(context.ObjetMondes.Find(id));
+                context.ObjetMondes.Remove(context.ObjetMondes.Find(om));
                 context.SaveChanges();
             }
 
         }
-        public static void ChangeDescriptionObjetMonde(int id, string newDescription)
+        public static void ChangeDescriptionObjetMonde(ObjetMonde om)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                ObjetMonde objetMonde = context.ObjetMondes.Find(id);
-                objetMonde.Description = newDescription; 
+                ObjetMonde objetMonde = context.ObjetMondes.Where(o => (o.x == om.x && o.y == om.y) && o.Monde == om.Monde )
+                                                            .FirstOrDefault();
+                objetMonde.Description = om.Description;
+                objetMonde.TypeObjet = om.TypeObjet;
+                objetMonde.x = om.x;
+                objetMonde.y = om.y;
+
                 context.SaveChanges();
             }
         }
