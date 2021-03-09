@@ -25,7 +25,6 @@ namespace HugoLandEditeur
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
             if (CompteJoueursCRUD.ValideAdmin(txtUserName.Text, txtPwd.Text) == "SUCCESS")
             {
                 EstConnecte = true;

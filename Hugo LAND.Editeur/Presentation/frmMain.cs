@@ -569,7 +569,6 @@ namespace HugoLandEditeur
                     m_bRefresh = true;
                     m_bResize = true;
                     picMap.Visible = true;
-                    m_WorldOpen = true;
                 }
                 catch
                 {
@@ -650,6 +649,7 @@ namespace HugoLandEditeur
                 try
                 {
                     bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, f.MapDescription, 32);
+                    m_CurrentWorld = new Monde();
                     m_CurrentWorld.LimiteX = m_Map.Width;
                     m_CurrentWorld.LimiteY = m_Map.Height;
                     m_CurrentWorld.Description = m_Map.Description;
@@ -661,6 +661,7 @@ namespace HugoLandEditeur
                         picMap.Visible = true;
                         m_isNew = true;
                         m_WorldOpen = true;
+                        FillLists();
                     }
                 }
                 catch
