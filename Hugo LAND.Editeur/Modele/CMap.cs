@@ -146,7 +146,7 @@ namespace HugoLandEditeur
 
         public int getMapTileType(int x, int y)
         {
-            return m_Tiles[x, y];
+            return m_Tiles[y, x];
         }
 
         public void Refresh()

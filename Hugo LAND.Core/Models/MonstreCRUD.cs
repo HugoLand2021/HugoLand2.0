@@ -13,7 +13,7 @@ namespace Hugo_LAND.Core.Models
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.Monstres.Add(new Monstre()
+                context.Mondes.Find(monstre.Monde.Id).Monstres.Add(new Monstre()
                 {
                     Nom = monstre.Nom,
                     Niveau = monstre.Niveau,
@@ -22,8 +22,7 @@ namespace Hugo_LAND.Core.Models
                     StatPV = monstre.StatPV,
                     StatDmgMin = monstre.StatDmgMin,
                     StatDmgMax = monstre.StatDmgMax,
-                    ImageId= monstre.ImageId,
-                    Monde = monstre.Monde
+                    ImageId = monstre.ImageId,
                 });
                 context.SaveChanges();
             }
@@ -32,7 +31,8 @@ namespace Hugo_LAND.Core.Models
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.Monstres.Remove(context.Monstres.Find(monstre));
+                context.Monstres.Remove(context.Monstres.Find(monstre.Id));
+                context.Mondes.Find(monstre.Monde.Id).Monstres.Remove(monstre);
                 context.SaveChanges();
             }
         }

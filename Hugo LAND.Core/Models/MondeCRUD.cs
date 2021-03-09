@@ -24,6 +24,17 @@ namespace Hugo_LAND.Core.Models
                 context.SaveChanges();
             }
         }
+
+        public static Monde RafraichirMonde(Monde monde) {
+            using (HugoLANDContext context = new HugoLANDContext())
+            {
+                Monde mondetemp = context.Mondes.Find(monde.Id);
+                monde.Items = mondetemp.Items;
+                monde.Monstres = mondetemp.Monstres;
+                monde.ObjetMondes = mondetemp.ObjetMondes;
+            }
+            return monde;
+        }
         public static void SupprimeMonde(int id)
         {
             using (HugoLANDContext context = new HugoLANDContext())

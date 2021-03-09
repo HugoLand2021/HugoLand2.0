@@ -13,14 +13,15 @@ namespace Hugo_LAND.Core.Models
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.ObjetMondes.Add(new ObjetMonde
+
+                context.Mondes.Find(om.Monde.Id).ObjetMondes.Add(new ObjetMonde
                 {
                     x = om.x,
                     y = om.y,
                     Description = om.Description,
                     TypeObjet = om.TypeObjet,
-                    Monde = om.Monde
                 });
+
                 context.SaveChanges();
             }
         }
@@ -29,7 +30,7 @@ namespace Hugo_LAND.Core.Models
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.ObjetMondes.Remove(context.ObjetMondes.Find(om));
+                context.ObjetMondes.Remove(context.ObjetMondes.Find(om.Id));
                 context.SaveChanges();
             }
 
@@ -38,7 +39,7 @@ namespace Hugo_LAND.Core.Models
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                ObjetMonde objetMonde = context.ObjetMondes.Where(o => (o.x == om.x && o.y == om.y) && o.Monde == om.Monde )
+                ObjetMonde objetMonde = context.ObjetMondes.Where(o => (o.x == om.x && o.y == om.y) && o.Monde == om.Monde)
                                                             .FirstOrDefault();
                 objetMonde.Description = om.Description;
                 objetMonde.TypeObjet = om.TypeObjet;

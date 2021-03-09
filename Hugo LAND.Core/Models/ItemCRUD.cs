@@ -13,7 +13,7 @@ namespace Hugo_LAND.Core.Models
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.Items.Add(new Item()
+                context.Mondes.Find(item.Monde.Id).Items.Add(new Item()
                 {
                     Nom = item.Nom,
                     Description = item.Description,
@@ -21,7 +21,6 @@ namespace Hugo_LAND.Core.Models
                     y = item.y,
                     ImageId = item.ImageId,
                     Hero = item.Hero,
-                    Monde = item.Monde
                 });
                 context.SaveChanges();
             }
@@ -45,7 +44,7 @@ namespace Hugo_LAND.Core.Models
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.Items.Remove(context.Items.Find(item));
+                context.Items.Remove(context.Items.Find(item.Id));
                 context.SaveChanges();
             }
         }
