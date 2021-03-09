@@ -11,16 +11,17 @@ namespace Hugo_LAND.Core.Models
     {
 
         //Méthode pour les Mondes
-        public static void CreerMonde(string description, int limX, int limY)
+        public static void CreerMonde(Monde monde)
         {
             using (HugoLANDContext context = new HugoLANDContext())
             {
-                context.Mondes.Add(new Monde()
-                {
-                    Description = description,
-                    LimiteX = limX,
-                    LimiteY = limY
-                });
+                context.Mondes.Add(monde);
+                //context.Mondes.Add(new Monde()
+                //{
+                //    Description = description,
+                //    LimiteX = limX,
+                //    LimiteY = limY
+                //});
                 context.SaveChanges();
             }
         }

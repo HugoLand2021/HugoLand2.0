@@ -22,6 +22,7 @@ namespace HugoLandEditeur
         private List<ObjetMonde> m_LObj;
         private List<Monstre> m_LMonstre;
         private List<Item> m_LItem;
+        private bool m_isNew;
         //private Dictionary<ObjetMonde, string> m_DObj;
         //private Dictionary<Monstre, string> m_DMonstre;
         //private Dictionary<Item, string> m_DItem;
@@ -93,6 +94,7 @@ namespace HugoLandEditeur
             m_LObj = new List<ObjetMonde>();
             m_LMonstre = new List<Monstre>();
             m_LItem = new List<Item>();
+            m_isNew = false;
             picMap.Parent = picEditArea;
             picMap.Left = 0;
             picMap.Top = 0;
@@ -615,7 +617,11 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void m_SaveMap()
         {
-
+            if (m_isNew)
+            { 
+                MondeCRUD.CreerMonde(m_CurrentWorld);
+                m_isNew = false;
+            }
 
             foreach (ObjetMonde om in m_CurrentWorld.ObjetMondes)
                 ObjetMondeCRUD.SupprimeObjetMonde(om);
@@ -623,14 +629,12 @@ namespace HugoLandEditeur
                 ItemCRUD.SupprimerItem(i);
             foreach (Monstre m in m_CurrentWorld.Monstres)
                 MonstreCRUD.SupprimerMonstre(m);
-
             foreach (ObjetMonde om in m_LObj)
                 ObjetMondeCRUD.CreeObjetMonde(om);
             foreach (Item i in m_LItem)
                 ItemCRUD.CreerItem(i);
             foreach (Monstre m in m_LMonstre)
                 MonstreCRUD.CreerMonstre(m);
-
             m_CurrentWorld =  MondeCRUD.RafraichirMonde(m_CurrentWorld);
             FillLists();
             ////Sauvegarde des 
@@ -738,6 +742,7 @@ namespace HugoLandEditeur
                         m_bRefresh = true;
                         m_bResize = true;
                         picMap.Visible = true;
+                        m_isNew = true;
                     }
                 }
                 catch
